@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.PendingIntent;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.Fragments.ReadTagFragment;
@@ -28,12 +30,6 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
-    /**
-     * PendingIntent object so the Android system can populate it with the details of the tag when
-     *  it is scanned.
-     */
-    private PendingIntent pIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +43,6 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        // Foreground dispatch preparation
-        pIntent = PendingIntent.getActivity(
-                this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
     }
 
     @Override
@@ -100,6 +92,24 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onNewIntent(Intent intent) {
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        //do something with tagFromIntent
+        Toast.makeText(this, "onNewIntent", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Check if launched with NFC intent
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+            Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            //do something with tagFromIntent
+            Toast.makeText(this, "onResume", Toast.LENGTH_LONG).show();
+        }
+    }
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:

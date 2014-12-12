@@ -28,4 +28,3 @@ public class WriteTagFragment extends Fragment {
         ((MainActivity) activity).onSectionAttached(2);
     }
 }
-

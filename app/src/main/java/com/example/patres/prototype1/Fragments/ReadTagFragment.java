@@ -33,6 +33,9 @@ public class ReadTagFragment extends Fragment {
      */
     private Activity activity;
 
+    /**
+     * Intent filters for NFC
+     */
     private IntentFilter[] intentFiltersArray;
 
     public ReadTagFragment() {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Reader/Writer Prototype</string>
+    <string name="title_section_read">Read Tag</string>
+    <string name="title_section_write">Write Tag</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="read_title_info">Please scan the tag</string>
+    <string name="write_title_info">Write tag</string>
+
+</resources>

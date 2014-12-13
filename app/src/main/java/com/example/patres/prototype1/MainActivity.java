@@ -20,6 +20,11 @@ import com.example.patres.prototype1.Fragments.WriteTagFragment;
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    // Navigation section mappings
+    public static final int SECTION_READ = 1;
+    public static final int SECTION_WRITE = 2;
+    public static final int SECTION_INFO = 3;
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -124,13 +129,13 @@ public class MainActivity extends Activity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case MainActivity.SECTION_READ:
                 mTitle = getString(R.string.title_section_read);
                 break;
-            case 2:
+            case MainActivity.SECTION_WRITE:
                 mTitle = getString(R.string.title_section_write);
                 break;
-            case 3:
+            case MainActivity.SECTION_INFO:
                 mTitle = getString(R.string.title_section_tag_info);
                 break;
         }

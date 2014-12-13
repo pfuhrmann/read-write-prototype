@@ -24,6 +24,6 @@ public class ReadTagFragment extends NFCAwareFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(1);
+        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_READ);
     }
 }

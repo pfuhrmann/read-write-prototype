@@ -1,6 +1,5 @@
 package com.example.patres.prototype1.Fragments;
 
-
 import android.app.Activity;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -35,6 +34,6 @@ public class TagInfoFragment extends NFCAwareFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(3);
+        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_INFO);
     }
 }

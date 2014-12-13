@@ -11,10 +11,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Toast;
 
 import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.Fragments.ReadTagFragment;
+import com.example.patres.prototype1.Fragments.TagInfoFragment;
 import com.example.patres.prototype1.Fragments.WriteTagFragment;
 
 public class MainActivity extends Activity
@@ -59,6 +59,7 @@ public class MainActivity extends Activity
                 fragment = new WriteTagFragment();
                 break;
         }
+
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
@@ -95,21 +96,32 @@ public class MainActivity extends Activity
     @Override
     public void onNewIntent(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        //do something with tagFromIntent
-        Toast.makeText(this, "onNewIntent", Toast.LENGTH_LONG).show();
+        showTagInfo(tag);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Intent intent =  getIntent();
 
         // Check if launched with NFC intent
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
-            Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            //do something with tagFromIntent
-            Toast.makeText(this, "onResume", Toast.LENGTH_LONG).show();
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            showTagInfo(tag);
         }
     }
+
+    private void showTagInfo(Tag tag)
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
+        fragmentTagInfo.setTag(tag);
+        fragmentTagInfo.setRetainInstance(true);
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragmentTagInfo)
+                .commit();
+    }
+
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -117,6 +129,9 @@ public class MainActivity extends Activity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section_write);
+                break;
+            case 3:
+                mTitle = getString(R.string.title_section_tag_info);
                 break;
         }
     }

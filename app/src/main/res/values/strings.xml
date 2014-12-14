@@ -9,9 +9,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="read_title_info">Please scan the tag</string>
-    <string name="write_title_info">Write tag</string>
+    <string name="read_title_info">Please scan the mTag</string>
+    <string name="write_title_info">Write mTag</string>
     <string name="tag_info_data">Data</string>
     <string name="tag_info_type">Type</string>
+    <string name="tag_info_tech">Technologies</string>
+    <string name="tag_info_id">ID</string>
 
 </resources>

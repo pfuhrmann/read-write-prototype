@@ -5,9 +5,11 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -21,9 +23,9 @@ public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     // Navigation section mappings
-    public static final int SECTION_READ = 1;
-    public static final int SECTION_WRITE = 2;
-    public static final int SECTION_INFO = 3;
+    public static final int SECTION_READ = 0;
+    public static final int SECTION_WRITE = 1;
+    public static final int SECTION_INFO = 2;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -57,10 +59,10 @@ public class MainActivity extends Activity
         Fragment fragment = new Fragment();
 
         switch (position) {
-            case 0:
+            case MainActivity.SECTION_READ:
                 fragment = new ReadTagFragment();
                 break;
-            case 1:
+            case MainActivity.SECTION_WRITE:
                 fragment = new WriteTagFragment();
                 break;
         }
@@ -100,8 +102,9 @@ public class MainActivity extends Activity
 
     @Override
     public void onNewIntent(Intent intent) {
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        showTagInfo(tag);
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            showTagInfo(intent);
+        }
     }
 
     @Override
@@ -109,26 +112,33 @@ public class MainActivity extends Activity
         super.onResume();
         Intent intent =  getIntent();
 
-        // Check if launched with NFC intent
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            showTagInfo(tag);
+            showTagInfo(intent);
         }
     }
 
-    private void showTagInfo(Tag tag)
+    private void showTagInfo(Intent intent)
     {
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        // Get NDEF messages
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        NdefMessage[] ndef = new NdefMessage[rawMsgs.length];
+        for (int i = 0; i < rawMsgs.length; i++) {
+            ndef[i] = (NdefMessage) rawMsgs[i];
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
         TagInfoFragment fragmentTagInfo = new TagInfoFragment();
-        fragmentTagInfo.setTag(tag);
+        fragmentTagInfo.setTag(tag).setNdef(ndef);
         fragmentTagInfo.setRetainInstance(true);
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragmentTagInfo)
                 .commit();
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
+    public void onSectionAttached(int section) {
+        switch (section) {
             case MainActivity.SECTION_READ:
                 mTitle = getString(R.string.title_section_read);
                 break;
@@ -143,7 +153,6 @@ public class MainActivity extends Activity
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }

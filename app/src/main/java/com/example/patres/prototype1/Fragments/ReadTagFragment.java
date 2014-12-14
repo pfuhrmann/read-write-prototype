@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.patres.prototype1.MainActivity;
 import com.example.patres.prototype1.R;
 
-public class ReadTagFragment extends NFCAwareFragment {
+public class ReadTagFragment extends NfcAwareFragment {
 
     public ReadTagFragment() {
     }
@@ -17,8 +17,7 @@ public class ReadTagFragment extends NFCAwareFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_read, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_read, container, false);
     }
 
     @Override

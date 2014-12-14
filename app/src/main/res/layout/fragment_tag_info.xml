@@ -6,15 +6,11 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".TagInfoFragment" >
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tag_info_type"
         android:id="@+id/textView"
-        android:layout_below="@+id/section_label"
         android:layout_alignParentStart="true"
         android:layout_marginTop="33dp" />
 
@@ -30,16 +26,48 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_alignTop="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/textView" />
+        android:text="@string/tag_info_tech"
+        android:id="@+id/textView6"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_alignTop="@+id/textView3" />
+        android:text="@string/tag_info_id"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewType"
+        android:layout_alignTop="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textViewData" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewTech"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_alignStart="@+id/textViewId" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewId"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignStart="@+id/textViewType" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewData"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignStart="@+id/textViewTech" />
 
 </RelativeLayout>

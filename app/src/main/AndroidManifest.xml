@@ -3,6 +3,7 @@
     package="com.example.patres.prototype1" >
 
     <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +19,7 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="*/*" />
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
             </intent-filter>
         </activity>
     </application>

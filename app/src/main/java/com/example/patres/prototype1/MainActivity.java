@@ -102,7 +102,7 @@ public class MainActivity extends Activity
 
     @Override
     public void onNewIntent(Intent intent) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             showTagInfo(intent);
         }
     }
@@ -112,7 +112,7 @@ public class MainActivity extends Activity
         super.onResume();
         Intent intent =  getIntent();
 
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             showTagInfo(intent);
         }
     }
@@ -123,14 +123,15 @@ public class MainActivity extends Activity
 
         // Get NDEF messages
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        NdefMessage[] ndef = new NdefMessage[rawMsgs.length];
+        NdefMessage[] ndefMsgs = new NdefMessage[rawMsgs.length];
         for (int i = 0; i < rawMsgs.length; i++) {
-            ndef[i] = (NdefMessage) rawMsgs[i];
+            ndefMsgs[i] = (NdefMessage) rawMsgs[i];
         }
 
+        // Display info fragment
         FragmentManager fragmentManager = getFragmentManager();
         TagInfoFragment fragmentTagInfo = new TagInfoFragment();
-        fragmentTagInfo.setTag(tag).setNdef(ndef);
+        fragmentTagInfo.setTag(tag).setNdef(ndefMsgs);
         fragmentTagInfo.setRetainInstance(true);
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragmentTagInfo)

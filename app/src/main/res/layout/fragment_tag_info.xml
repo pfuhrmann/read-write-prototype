@@ -39,7 +39,8 @@
         android:id="@+id/textView7"
         android:layout_below="@+id/textView6"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:layout_alignEnd="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,5 +70,21 @@
         android:id="@+id/textViewData"
         android:layout_alignTop="@+id/textView3"
         android:layout_alignStart="@+id/textViewTech" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_info_tnf"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="43dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewTnf"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignStart="@+id/textViewId" />
 
 </RelativeLayout>

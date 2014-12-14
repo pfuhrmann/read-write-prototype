@@ -55,14 +55,8 @@ public class NfcAwareFragment extends Fragment {
                 mActivity, 0, new Intent(mActivity, mActivity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         // Intent filters preparation
-        IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try {
-            ndef.addDataType("*/*");
-        }
-        catch (IntentFilter.MalformedMimeTypeException e) {
-            throw new RuntimeException("fail", e);
-        }
-        mIntentFiltersArray = new IntentFilter[] {ndef, };
+        IntentFilter ndefFilter = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+        mIntentFiltersArray = new IntentFilter[] {ndefFilter, };
     }
 
     @Override
@@ -80,6 +74,7 @@ public class NfcAwareFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mNfcAdapter.enableForegroundDispatch(mActivity, mPendingIntent, mIntentFiltersArray, null);
+        mNfcAdapter.enableForegroundDispatch(
+                mActivity, mPendingIntent, mIntentFiltersArray, null);
     }
 }

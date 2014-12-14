@@ -45,15 +45,22 @@ public class TagInfoFragment extends NfcAwareFragment {
         NdefMessage ndef = getFirstNdefMessage();
         NdefRecord record = ndef.getRecords()[0];
 
+        short recordType = record.getTnf();
+        if (recordType == NdefRecord.TNF_MIME_MEDIA) {
+
+        }
+
         // Map mTag info to view
         TextView type = (TextView) rootView.findViewById(R.id.textViewType);
-        type.setText(Arrays.toString(record.getType()));
+        type.setText(new String(record.getType()));
         TextView data = (TextView) rootView.findViewById(R.id.textViewData);
-        data.setText(Arrays.toString(record.getPayload()));
+        data.setText(new String(record.getPayload()));
+        TextView tnf = (TextView) rootView.findViewById(R.id.textViewTnf);
+        tnf.setText(String.valueOf(record.getTnf()));
         TextView tech = (TextView) rootView.findViewById(R.id.textViewTech);
         tech.setText(Arrays.toString(mTag.getTechList()));
         TextView id = (TextView) rootView.findViewById(R.id.textViewId);
-        id.setText(Arrays.toString(mTag.getId()));
+        id.setText(new String(mTag.getId()));
 
         return rootView;
     }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.patres.prototype1.MainActivity;
@@ -42,33 +43,35 @@ public class TagInfoFragment extends NfcAwareFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tag_info, container, false);
 
-        // Map Tag Info
+        // Disable NDEF layout as default (NDEF msgs might not be present at all)
+        RelativeLayout NdefLayout = (RelativeLayout) view.findViewById(R.id.relativeNdefLayout);
+        NdefLayout.setVisibility(View.INVISIBLE);
+
+        // Tag ID
         TextView idTagTV = (TextView) view.findViewById(R.id.textViewTagId);
-        if (mTag.getId() != null) {
-            idTagTV.setText(new String(mTag.getId()));
-        } else {
-            idTagTV.setText(R.string.not_available);
-        }
-        // Map Tag Technology info to view
+        idTagTV.setText(parseIdToHexString(mTag.getId()));
+        // Tag Technology
         TextView techTagTV = (TextView) view.findViewById(R.id.textViewTagTech);
         techTagTV.setText(parseTechnologiesToString(mTag.getTechList()));
 
         // Map NDEF Info to view
         // TODO: Way of displaying multiple NDEF messages
         if (hasNdefMessage()) {
+            NdefLayout.setVisibility(View.VISIBLE);
             NdefMessage ndef = getFirstNdefMessage();
+            // This is safe as parsed NDEF always has at least one record
             NdefRecord record = ndef.getRecords()[0];
 
-            // Map ID to view
+            // NDEF ID
             TextView idNdefTV = (TextView) view.findViewById(R.id.textViewNdefId);
-            idNdefTV.setText(new String(record.getId()));
-            // Map Record Type to view
+            idNdefTV.setText(parseIdToHexString(record.getId()));
+            // NDEF Type
             TextView typeNdefTV = (TextView) view.findViewById(R.id.textViewNdefType);
-            typeNdefTV.setText(parseTypeToString(record.getType()));
-            // Map TNF info to view
+            typeNdefTV.setText(parseNdefTypeToString(record.getType()));
+            // NDEF TNF
             TextView tnfNdefTV = (TextView) view.findViewById(R.id.textViewNdefTnf);
             tnfNdefTV.setText(parseTnfToString(record.getTnf()));
-            // Map Payload to view
+            // NDEF Payload
             TextView payloadNdefTV = (TextView) view.findViewById(R.id.textViewNdefPayload);
             payloadNdefTV.setText(new String(record.getPayload()));
         }
@@ -132,8 +135,8 @@ public class TagInfoFragment extends NfcAwareFragment {
      * @param type Type sequence from NdefRecord
      * @return Parsed string
      */
-    private String parseTypeToString(byte[] type) {
-        String typeString = "N/A";
+    private String parseNdefTypeToString(byte[] type) {
+        String typeString = getString(R.string.not_available);
 
         if (Arrays.equals(type, NdefRecord.RTD_URI)) {
             typeString = "RTD_URI";
@@ -157,15 +160,43 @@ public class TagInfoFragment extends NfcAwareFragment {
     /**
      * Parse clean technologies from Tag (without packages prefix)
      *
-     * @param techs Technologies returned from Tag
+     * @param techs Technologies returned from NFC Tag
      * @return Parsed string
      */
     private String parseTechnologiesToString(String[] techs) {
-        String techString = "";
+        StringBuilder techString = new StringBuilder();
+
         for (String tech : techs) {
-            techString += tech.substring(17) + ", ";
+            if (techString.length() != 0) {
+                techString.append(", ");
+            }
+            techString.append(tech.substring(17));
         }
 
-        return techString;
+        return techString.toString();
+    }
+
+    /**
+     * Parse ID from tag in Hexadecimal string format
+     *
+     * @param id ID (UID) from NFC Tag (or NDEF)
+     * @return Parsed HEX string
+     */
+    private String parseIdToHexString(byte[] id) {
+        if (id != null && id.length > 0) {
+            StringBuilder idHexString = new StringBuilder();
+
+            for(int i=0; i<id.length; i++) {
+                if (i != id.length-1) {
+                    idHexString.append(String.format("%02X:", id[i]));
+                } else {
+                    idHexString.append(String.format("%02X", id[i]));
+                }
+            }
+
+            return idHexString.toString();
+        }
+
+        return getString(R.string.not_available);
     }
 }

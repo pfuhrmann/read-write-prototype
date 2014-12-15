@@ -47,7 +47,7 @@ public class TagInfoFragment extends NfcAwareFragment {
         if (mTag.getId() != null) {
             idTagTV.setText(new String(mTag.getId()));
         } else {
-            idTagTV.setText(new String("N/A"));
+            idTagTV.setText(R.string.not_available);
         }
         // Map Tag Technology info to view
         TextView techTagTV = (TextView) view.findViewById(R.id.textViewTagTech);
@@ -97,7 +97,7 @@ public class TagInfoFragment extends NfcAwareFragment {
      * @return Parsed string
      */
     private String parseTnfToString(short tnf) {
-        String tnfString = "N/A";
+        String tnfString = getString(R.string.not_available);
 
         switch (tnf) {
             case NdefRecord.TNF_ABSOLUTE_URI:

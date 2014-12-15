@@ -12,7 +12,7 @@
     <string name="tag_info_ndef_payload">NDEF Payload</string>
     <string name="tag_info_ndef_tnf">NDEF TNF</string>
     <string name="tag_info_ndef_type">NDEF Type</string>
-    <string name="tag_info_tag_id">ID</string>
+    <string name="tag_info_tag_id">Tag ID</string>
     <string name="tag_info_tag_tech">Technologies</string>
     <string name="title_section_read">Read Tag</string>
     <string name="title_section_tag_info">Tag Info</string>

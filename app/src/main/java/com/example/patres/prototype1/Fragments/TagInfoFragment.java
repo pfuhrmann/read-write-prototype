@@ -51,7 +51,7 @@ public class TagInfoFragment extends NfcAwareFragment {
         }
         // Map Tag Technology info to view
         TextView techTagTV = (TextView) view.findViewById(R.id.textViewTagTech);
-        techTagTV.setText(Arrays.toString(mTag.getTechList()));
+        techTagTV.setText(parseTechnologiesToString(mTag.getTechList()));
 
         // Map NDEF Info to view
         // TODO: Way of displaying multiple NDEF messages
@@ -91,7 +91,7 @@ public class TagInfoFragment extends NfcAwareFragment {
     }
 
     /**
-     * Convert TNF NDEF record value to human readable string
+     * Convert NDEF TNF record value to human readable string
      *
      * @param tnf TNF number from NdefRecord
      * @return Parsed string
@@ -127,7 +127,7 @@ public class TagInfoFragment extends NfcAwareFragment {
     }
 
     /**
-     * Convert Type NDEF record value to human readable string
+     * Convert NDEF Type record value to human readable string
      *
      * @param type Type sequence from NdefRecord
      * @return Parsed string
@@ -152,5 +152,20 @@ public class TagInfoFragment extends NfcAwareFragment {
         }
 
         return typeString;
+    }
+
+    /**
+     * Parse clean technologies from Tag (without packages prefix)
+     *
+     * @param techs Technologies returned from Tag
+     * @return Parsed string
+     */
+    private String parseTechnologiesToString(String[] techs) {
+        String techString = "";
+        for (String tech : techs) {
+            techString += tech.substring(17) + ", ";
+        }
+
+        return techString;
     }
 }

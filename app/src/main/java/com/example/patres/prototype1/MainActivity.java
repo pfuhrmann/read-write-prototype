@@ -120,19 +120,22 @@ public class MainActivity extends Activity
     private void showTagInfo(Intent intent)
     {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
 
-        // Get NDEF messages
+        // Get NDEF messages (if any)
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        NdefMessage[] ndefMsgs = new NdefMessage[rawMsgs.length];
-        for (int i = 0; i < rawMsgs.length; i++) {
-            ndefMsgs[i] = (NdefMessage) rawMsgs[i];
+        if (rawMsgs != null) {
+            NdefMessage[] ndefMsgs = new NdefMessage[rawMsgs.length];
+            for (int i = 0; i < rawMsgs.length; i++) {
+                ndefMsgs[i] = (NdefMessage) rawMsgs[i];
+            }
+            fragmentTagInfo.setNdef(ndefMsgs);
         }
 
         // Display info fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
-        fragmentTagInfo.setTag(tag).setNdef(ndefMsgs);
+        fragmentTagInfo.setTag(tag);
         fragmentTagInfo.setRetainInstance(true);
+        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragmentTagInfo)
                 .commit();

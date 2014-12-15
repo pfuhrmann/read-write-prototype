@@ -11,10 +11,11 @@
     <string name="action_settings">Settings</string>
     <string name="read_title_info">Please scan the tag</string>
     <string name="write_title_info">Write tag</string>
-    <string name="tag_info_data">Data</string>
-    <string name="tag_info_type">Type</string>
-    <string name="tag_info_tech">Technologies</string>
-    <string name="tag_info_id">ID</string>
-    <string name="tag_info_tnf">TNF</string>
+    <string name="tag_info_ndef_id">NDEF ID</string>
+    <string name="tag_info_ndef_payload">NDEF Payload</string>
+    <string name="tag_info_ndef_tnf">NDEF TNF</string>
+    <string name="tag_info_ndef_type">NDEF Type</string>
+    <string name="tag_info_tag_tech">Technologies</string>
+    <string name="tag_info_tag_id">ID</string>
 
 </resources>

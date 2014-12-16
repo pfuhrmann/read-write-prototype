@@ -16,6 +16,8 @@ import com.example.patres.prototype1.R;
 
 import java.util.Arrays;
 
+;
+
 public class TagInfoFragment extends NfcAwareFragment {
 
     /**
@@ -170,6 +172,8 @@ public class TagInfoFragment extends NfcAwareFragment {
             if (techString.length() != 0) {
                 techString.append(", ");
             }
+            // Input: android.nfc.tech.NfcA
+            // Output: NfcA
             techString.append(tech.substring(17));
         }
 
@@ -185,13 +189,15 @@ public class TagInfoFragment extends NfcAwareFragment {
     private String parseIdToHexString(byte[] id) {
         if (id != null && id.length > 0) {
             StringBuilder idHexString = new StringBuilder();
+            String format;
 
             for(int i=0; i<id.length; i++) {
                 if (i != id.length-1) {
-                    idHexString.append(String.format("%02X:", id[i]));
+                    format = "%02X:";
                 } else {
-                    idHexString.append(String.format("%02X", id[i]));
+                    format = "%02X";
                 }
+                idHexString.append(String.format(format, id[i]));
             }
 
             return idHexString.toString();

@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.ListViewItem;
+import com.example.patres.prototype1.Models.NavigationListViewItem;
 import com.example.patres.prototype1.R;
 
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<ListViewItem> {
+public class NavigationListViewAdapter extends ArrayAdapter<NavigationListViewItem> {
 
-    public ListViewAdapter(Context context, List<ListViewItem> items) {
+    public NavigationListViewAdapter(Context context, List<NavigationListViewItem> items) {
         super(context, R.layout.listview, items);
     }
 
@@ -38,9 +38,9 @@ public class ListViewAdapter extends ArrayAdapter<ListViewItem> {
         }
 
         // update the item view
-        ListViewItem item = getItem(position);
-        viewHolder.tvTitle.setText(item.title);
-        viewHolder.tvDescription.setText(item.description);
+        NavigationListViewItem item = getItem(position);
+        viewHolder.tvTitle.setText(item.getTitle());
+        viewHolder.tvDescription.setText(item.getDescription());
 
         return convertView;
     }
@@ -48,8 +48,7 @@ public class ListViewAdapter extends ArrayAdapter<ListViewItem> {
     /**
      * The view holder design pattern prevents using findViewById()
      * repeatedly in the getView() method of the adapter.
-     *
-     * @see http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder
+     * http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder
      */
     private static class ViewHolder {
         TextView tvTitle;

@@ -1,9 +1,11 @@
 package com.example.patres.prototype1.Fragments;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -11,10 +13,12 @@ import com.example.patres.prototype1.Adapters.NavigationListViewAdapter;
 import com.example.patres.prototype1.MainActivity;
 import com.example.patres.prototype1.Models.Data.WriteTagListItemsData;
 import com.example.patres.prototype1.Models.NavigationListViewItem;
+import com.example.patres.prototype1.R;
 
 import java.util.List;
 
-public class WriteTagFragment extends ListFragment {
+public class WriteTagFragment extends NfcAwareFragment
+        implements AdapterView.OnItemClickListener {
 
     private List<NavigationListViewItem> mItems;
 
@@ -28,25 +32,21 @@ public class WriteTagFragment extends ListFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_write, container, false);
 
-        // initialize the items list
+        // Setup List view
+        ListView list1 = (ListView) view.findViewById(R.id.list);
         mItems = new WriteTagListItemsData();
+        list1.setAdapter(new NavigationListViewAdapter(getActivity(), mItems));
+        list1.setOnItemClickListener(this);
 
-        // initialize and set the list adapter
-        setListAdapter(new NavigationListViewAdapter(getActivity(), mItems));
+        return view;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // remove the dividers from the ListView of the ListFragment
-        getListView().setDivider(null);
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // retrieve theListView item
         NavigationListViewItem item = mItems.get(position);
 

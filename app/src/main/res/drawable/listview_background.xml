@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
+    <!-- focused -->
+    <item android:state_focused="true"
+        android:drawable="@color/transparent" />
+
+    <!-- focused and pressed-->
+    <item android:state_focused="true"
+        android:state_pressed="true"
+        android:drawable="@color/transparent" />
+
+    <!-- pressed -->
+    <item android:state_pressed="true"
+        android:drawable="@color/transparent" />
+
+    <!-- default -->
+    <item android:drawable="@drawable/card_background" />
+
+</selector>

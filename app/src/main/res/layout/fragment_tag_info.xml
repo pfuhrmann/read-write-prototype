@@ -124,6 +124,7 @@
             android:id="@+id/textViewNdefTnf"
             android:layout_alignTop="@+id/textView4"
             android:layout_alignStart="@+id/textViewNdefId" />
+
     </RelativeLayout>
 
 </RelativeLayout>

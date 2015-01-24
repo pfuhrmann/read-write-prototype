@@ -1,13 +1,14 @@
 package com.example.patres.prototype1.Fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.patres.prototype1.Adapters.NavigationListViewAdapter;
 import com.example.patres.prototype1.MainActivity;
@@ -17,8 +18,11 @@ import com.example.patres.prototype1.R;
 
 import java.util.List;
 
-public class WriteTagFragment extends NfcAwareFragment
+public class WriteTagFragment extends Fragment
         implements AdapterView.OnItemClickListener {
+
+    // Navigation list section mappings
+    public static final int WRITE_TEXT = 0;
 
     private List<NavigationListViewItem> mItems;
 
@@ -47,10 +51,18 @@ public class WriteTagFragment extends NfcAwareFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // retrieve theListView item
-        NavigationListViewItem item = mItems.get(position);
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = new Fragment();
 
-        // do something
-        Toast.makeText(getActivity(), item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (position) {
+            case WriteTagFragment.WRITE_TEXT:
+                fragment = new WriteTextFragment();
+                break;
+        }
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 }

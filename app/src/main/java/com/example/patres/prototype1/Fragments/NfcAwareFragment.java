@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.patres.prototype1.MainActivity;
+import com.example.patres.prototype1.R;
 
 public class NfcAwareFragment extends Fragment {
 
@@ -46,7 +47,7 @@ public class NfcAwareFragment extends Fragment {
         // Check for available NFC Adapter
         mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
         if (mNfcAdapter == null) {
-            Toast.makeText(mActivity, "NFC is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.nfc_not_available, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -56,7 +57,7 @@ public class NfcAwareFragment extends Fragment {
 
         // Intent filters preparation
         IntentFilter ndefFilter = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        mIntentFiltersArray = new IntentFilter[] {ndefFilter, };
+        mIntentFiltersArray = new IntentFilter[] {ndefFilter};
     }
 
     @Override

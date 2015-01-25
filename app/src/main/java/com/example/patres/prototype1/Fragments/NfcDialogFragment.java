@@ -8,9 +8,23 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import com.example.patres.prototype1.Helpers.NFCManager;
 import com.example.patres.prototype1.R;
 
 public class NfcDialogFragment extends DialogFragment {
+
+    /**
+     * NFC helper class
+     */
+    private NFCManager mNfcManager;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mNfcManager = new NFCManager(getActivity(), NFCManager.CATEGORY_ENCODE);
+        mNfcManager.prepare();
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -23,5 +37,17 @@ public class NfcDialogFragment extends DialogFragment {
                         // Do nothing just close modal
                     }
                 }).create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mNfcManager.enableForegroundDispatch();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mNfcManager.disableForegroundDispatch();
     }
 }

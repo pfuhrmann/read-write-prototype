@@ -11,9 +11,6 @@ import com.example.patres.prototype1.R;
 
 public class ReadTagFragment extends NfcAwareFragment {
 
-    public ReadTagFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

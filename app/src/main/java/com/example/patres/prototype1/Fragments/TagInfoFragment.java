@@ -16,8 +16,6 @@ import com.example.patres.prototype1.R;
 
 import java.util.Arrays;
 
-;
-
 public class TagInfoFragment extends NfcAwareFragment {
 
     /**

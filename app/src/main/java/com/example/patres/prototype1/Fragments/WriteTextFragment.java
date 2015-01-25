@@ -15,9 +15,6 @@ import com.example.patres.prototype1.R;
 public class WriteTextFragment extends Fragment
         implements View.OnClickListener {
 
-    public WriteTextFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -18,6 +18,7 @@ import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.Fragments.ReadTagFragment;
 import com.example.patres.prototype1.Fragments.TagInfoFragment;
 import com.example.patres.prototype1.Fragments.WriteTagFragment;
+import com.example.patres.prototype1.Helpers.NFCManager;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -102,8 +103,14 @@ public class MainActivity extends Activity
 
     @Override
     public void onNewIntent(Intent intent) {
+        // Filtering for NFC dispatches
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            showTagInfo(intent);
+            String category = intent.getExtras().getString("category");
+            if (NFCManager.CATEGORY_READ.equals(category)) {
+                showTagInfo(intent);
+            } else if (NFCManager.CATEGORY_ENCODE.equals(category)) {
+                // Do something else
+            }
         }
     }
 
@@ -111,9 +118,14 @@ public class MainActivity extends Activity
     public void onResume() {
         super.onResume();
         Intent intent =  getIntent();
-
+        // Filtering for NFC dispatches
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            showTagInfo(intent);
+            String category = intent.getStringExtra("category");
+            if (NFCManager.CATEGORY_READ.equals(category)) {
+                showTagInfo(intent);
+            } else if (NFCManager.CATEGORY_ENCODE.equals(category)) {
+                // Do something else
+            }
         }
     }
 

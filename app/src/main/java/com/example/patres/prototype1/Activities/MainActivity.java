@@ -171,7 +171,7 @@ public class MainActivity extends Activity
         NdefMessage ndefMessage = new NdefMessage(record);
 
         // Write NDEF record
-        TagWriter writer = new TagWriter();
+        TagWriter writer = new TagWriter(getResources());
         TagWriter.WriteResponse wr = writer.writeTag(ndefMessage, tag);
         String message = (wr.getStatus() == 1 ? "Success: " : "Failed: ") + wr.getMessage();
 

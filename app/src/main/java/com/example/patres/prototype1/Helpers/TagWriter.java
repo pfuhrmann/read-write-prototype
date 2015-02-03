@@ -1,68 +1,117 @@
 package com.example.patres.prototype1.Helpers;
 
+import android.content.res.Resources;
 import android.nfc.NdefMessage;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 
+import com.example.patres.prototype1.R;
+
 import java.io.IOException;
 
 public class TagWriter {
 
+    /**
+     * Application resources (to get string.xml values)
+     */
+    private Resources mResources;
+
+    /**
+     * Crate new TagWriter instance
+     *
+     * @param resources Application resources
+     */
+    public TagWriter(Resources resources) {
+        mResources = resources;
+    }
+
+    /**
+     * Write NDEF message to the Tag
+     *
+     * @param message NDEF formatted message
+     * @param tag Discovered NFC tag
+     * @return Response class
+     */
     public WriteResponse writeTag(NdefMessage message, Tag tag) {
-        int size = message.toByteArray().length;
         String mess;
         try {
             Ndef ndef = Ndef.get(tag);
             if (ndef != null) {
+                // Initiate connection between tag
                 ndef.connect();
                 if (!ndef.isWritable()) {
-                    return new WriteResponse(0, "Tag is read-only");
+                    return new WriteResponse(0, getString(R.string.tag_read_only));
                 }
-                if (ndef.getMaxSize() < size) {
-                    mess = "Tag capacity is " + ndef.getMaxSize() + " bytes, message is " + size
-                            + " bytes.";
+                // Check tag's capacity against message size
+                int capacity = ndef.getMaxSize();
+                int size = message.toByteArray().length;
+                if (capacity < size) {
+                    mess = getString(R.string.tag_insufficient_capacity, capacity, size);
                     return new WriteResponse(0, mess);
                 }
+                // Write now
                 ndef.writeNdefMessage(message);
-
-                mess = "Wrote message to pre-formatted tag.";
-                return new WriteResponse(1, mess);
+                return new WriteResponse(1, getString(R.string.tag_encoded));
             } else {
                 NdefFormatable format = NdefFormatable.get(tag);
                 if (format != null) {
                     try {
+                        // Initiate connection between tag
                         format.connect();
+                        // Format tag to NDEF
                         format.format(message);
-                        mess = "Formatted tag and wrote message";
-                        return new WriteResponse(1, mess);
+                        return new WriteResponse(1, getString(R.string.tag_encoded_formatted));
                     } catch (IOException e) {
-                        mess = "Failed to format tag.";
-                        return new WriteResponse(0, mess);
+                        return new WriteResponse(0, getString(R.string.tag_format_failed));
                     }
                 } else {
-                    mess = "Tag doesn't support NDEF.";
-                    return new WriteResponse(0, mess);
+                    return new WriteResponse(0, getString(R.string.tag_no_ndef));
                 }
             }
         } catch (Exception e) {
-            mess = "Failed to write tag";
-            return new WriteResponse(0, mess);
+            return new WriteResponse(0, getString(R.string.tag_encoding_failed));
         }
     }
 
+    /**
+     * Return a localized string from the application's resources
+     *
+     * @param resId Resource id for the string
+     */
+    public final String getString(int resId) {
+        return mResources.getString(resId);
+    }
+
+    /**
+     * Return a localized string from the application's resources,
+     * substituting the format arguments.
+     *
+     * @param resId Resource id for the format string
+     * @param formatArgs The format arguments that will be used for substitution
+     */
+    public final String getString(int resId, Object... formatArgs) {
+        return mResources.getString(resId, formatArgs);
+    }
+
+    /**
+     * Immutable response class
+     */
     public class WriteResponse {
-        int status;
-        String message;
-        WriteResponse(int Status, String Message) {
-            this.status = Status;
-            this.message = Message;
+        int mStatus;
+        String mMessage;
+
+        WriteResponse(int status, String message) {
+            mStatus = status;
+            mMessage = message;
         }
+
         public int getStatus() {
-            return status;
+            return mStatus;
         }
+
         public String getMessage() {
-            return message;
+            return mMessage;
         }
     }
 }

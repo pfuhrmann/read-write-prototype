@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
@@ -40,7 +41,8 @@ public class WriteTextFragment extends Fragment
     @Override
     public void onClick(View v) {
         // NDEF Record to write
-        NdefRecord record = createTextRecord("xxx", Locale.getDefault(), true);
+        EditText text = (EditText) v.findViewById(R.id.editText);
+        NdefRecord record = createTextRecord(text.getText().toString(), Locale.getDefault(), true);
         NfcDialogFragment fragment = new NfcDialogFragment();
         fragment.setNdefRecord(record);
 

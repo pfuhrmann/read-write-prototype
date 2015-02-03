@@ -16,7 +16,11 @@ public class NfcAwareFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        nfcManager = new NFCManager(getActivity(), NFCManager.CATEGORY_READ);
+        // Extra data for NFC intent
+        Bundle bundle = new Bundle();
+        bundle.putInt("category", NFCManager.CATEGORY_READ);
+
+        nfcManager = new NFCManager(getActivity(), bundle);
         nfcManager.prepare();
     }
 

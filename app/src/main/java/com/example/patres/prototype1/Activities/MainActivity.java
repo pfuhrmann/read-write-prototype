@@ -1,4 +1,4 @@
-package com.example.patres.prototype1;
+package com.example.patres.prototype1.Activities;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -6,19 +6,26 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.Fragments.ReadTagFragment;
 import com.example.patres.prototype1.Fragments.TagInfoFragment;
 import com.example.patres.prototype1.Fragments.WriteTagFragment;
 import com.example.patres.prototype1.Helpers.NFCManager;
+import com.example.patres.prototype1.R;
+
+import java.io.IOException;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -103,34 +110,35 @@ public class MainActivity extends Activity
 
     @Override
     public void onNewIntent(Intent intent) {
-        // Filtering for NFC dispatches
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            String category = intent.getExtras().getString("category");
-            if (NFCManager.CATEGORY_READ.equals(category)) {
-                showTagInfo(intent);
-            } else if (NFCManager.CATEGORY_ENCODE.equals(category)) {
-                // Do something else
-            }
-        }
+        filterNFCDispatch(intent);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         Intent intent =  getIntent();
-        // Filtering for NFC dispatches
+        filterNFCDispatch(intent);
+    }
+
+    /**
+     * Filtering for NFC dispatches
+     * - Intents category property is used to diff between
+     *   read and write
+     */
+    private void filterNFCDispatch(Intent intent) {
+        int category = intent.getIntExtra("category", -1);
+
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            String category = intent.getStringExtra("category");
-            if (NFCManager.CATEGORY_READ.equals(category)) {
+            if (NFCManager.CATEGORY_READ == category) {
                 showTagInfo(intent);
-            } else if (NFCManager.CATEGORY_ENCODE.equals(category)) {
-                // Do something else
+            } else if (NFCManager.CATEGORY_ENCODE == category) {
+                writeTagRecord(intent);
             }
         }
     }
 
-    private void showTagInfo(Intent intent)
-    {
+    private void showTagInfo(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         TagInfoFragment fragmentTagInfo = new TagInfoFragment();
 
@@ -153,6 +161,17 @@ public class MainActivity extends Activity
                 .commit();
     }
 
+    private void writeTagRecord(Intent intent) {
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        NdefRecord record = intent.getParcelableExtra("record");
+        NdefMessage ndefMessage = new NdefMessage(record);
+
+        //writeTag here
+        WriteResponse wr = writeTag(ndefMessage, tag);
+        String message = (wr.getStatus() == 1 ? "Success: " : "Failed: ") + wr.getMessage();
+        Toast.makeText(this.getBaseContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     public void onSectionAttached(int section) {
         switch (section) {
             case MainActivity.SECTION_READ:
@@ -171,5 +190,62 @@ public class MainActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+    }
+
+    public WriteResponse writeTag(NdefMessage message, Tag tag) {
+        int size = message.toByteArray().length;
+        String mess;
+        try {
+            Ndef ndef = Ndef.get(tag);
+            if (ndef != null) {
+                ndef.connect();
+                if (!ndef.isWritable()) {
+                    return new WriteResponse(0, "Tag is read-only");
+                }
+                if (ndef.getMaxSize() < size) {
+                    mess = "Tag capacity is " + ndef.getMaxSize() + " bytes, message is " + size
+                            + " bytes.";
+                    return new WriteResponse(0, mess);
+                }
+                ndef.writeNdefMessage(message);
+
+                mess = "Wrote message to pre-formatted tag.";
+                return new WriteResponse(1, mess);
+            } else {
+                NdefFormatable format = NdefFormatable.get(tag);
+                if (format != null) {
+                    try {
+                        format.connect();
+                        format.format(message);
+                        mess = "Formatted tag and wrote message";
+                        return new WriteResponse(1, mess);
+                    } catch (IOException e) {
+                        mess = "Failed to format tag.";
+                        return new WriteResponse(0, mess);
+                    }
+                } else {
+                    mess = "Tag doesn't support NDEF.";
+                    return new WriteResponse(0, mess);
+                }
+            }
+        } catch (Exception e) {
+            mess = "Failed to write tag";
+            return new WriteResponse(0, mess);
+        }
+    }
+
+    private class WriteResponse {
+        int status;
+        String message;
+        WriteResponse(int Status, String Message) {
+            this.status = Status;
+            this.message = Message;
+        }
+        public int getStatus() {
+            return status;
+        }
+        public String getMessage() {
+            return message;
+        }
     }
 }

@@ -1,10 +1,10 @@
 package com.example.patres.prototype1.Fragments;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -12,6 +12,11 @@ import com.example.patres.prototype1.Helpers.NFCManager;
 import com.example.patres.prototype1.R;
 
 public class NfcDialogFragment extends DialogFragment {
+
+    /**
+     * Extra write data for NFCManager
+     */
+    private NdefRecord mRecord;
 
     /**
      * NFC helper class
@@ -22,7 +27,10 @@ public class NfcDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mNfcManager = new NFCManager(getActivity(), NFCManager.CATEGORY_ENCODE);
+        Bundle bundle = new Bundle();
+        bundle.putInt("category", NFCManager.CATEGORY_ENCODE);
+        bundle.putParcelable("record", mRecord);
+        mNfcManager = new NFCManager(getActivity(), bundle);
         mNfcManager.prepare();
     }
 
@@ -49,5 +57,13 @@ public class NfcDialogFragment extends DialogFragment {
     public void onPause() {
         super.onPause();
         mNfcManager.disableForegroundDispatch();
+    }
+
+    /**
+     *
+     * @param record Extra message for intent (NDEFRecord)
+     */
+    public void setNdefRecord(NdefRecord record) {
+        mRecord = record;
     }
 }

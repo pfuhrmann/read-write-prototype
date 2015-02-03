@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.MainActivity;
+import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
 import java.util.Arrays;

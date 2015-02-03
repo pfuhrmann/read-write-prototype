@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.patres.prototype1.MainActivity;
+import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
 public class ReadTagFragment extends NfcAwareFragment {

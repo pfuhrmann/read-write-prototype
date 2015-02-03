@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.patres.prototype1.Adapters.NavigationListViewAdapter;
-import com.example.patres.prototype1.MainActivity;
+import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.Models.Data.WriteTagListItemsData;
 import com.example.patres.prototype1.Models.NavigationListViewItem;
 import com.example.patres.prototype1.R;
@@ -41,18 +41,16 @@ public class WriteTagFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_write, container, false);
 
         // Setup List view
-        ListView list1 = (ListView) view.findViewById(R.id.list);
+        ListView list = (ListView) view.findViewById(R.id.list);
         mItems = new WriteTagListItemsData();
-        list1.setAdapter(new NavigationListViewAdapter(getActivity(), mItems));
-        list1.setOnItemClickListener(this);
+        list.setAdapter(new NavigationListViewAdapter(getActivity(), mItems));
+        list.setOnItemClickListener(this);
 
         return view;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment = new Fragment();
 
         switch (position) {
@@ -61,6 +59,8 @@ public class WriteTagFragment extends Fragment
                 break;
         }
 
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();

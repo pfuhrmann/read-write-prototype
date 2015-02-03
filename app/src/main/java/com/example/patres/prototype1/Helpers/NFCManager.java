@@ -13,8 +13,8 @@ import com.example.patres.prototype1.R;
 public class NFCManager {
 
     // Intent extra category mappings
-    public static final String CATEGORY_READ = "read";
-    public static final String CATEGORY_ENCODE = "encode";
+    public static final int CATEGORY_READ = 0;
+    public static final int CATEGORY_ENCODE = 1;
 
     /**
      * PendingIntent object so the Android system can populate it with the details of the tag when
@@ -38,18 +38,18 @@ public class NFCManager {
     private IntentFilter[] mIntentFiltersArray;
 
     /**
-     * Intent extra category
+     * Intent extra data
      */
-    private String mCategory;
+    private Bundle mExtra;
 
 
     /**
      * New NFCManager instance
      * @param activity Activity instance
      */
-    public NFCManager(Activity activity, String category) {
+    public NFCManager(Activity activity, Bundle extra) {
         mActivity = activity;
-        mCategory = category;
+        mExtra = extra;
     }
 
     /**
@@ -64,12 +64,11 @@ public class NFCManager {
         }
 
         // Foreground dispatch preparation
-        Bundle bundle = new Bundle();
-        bundle.putString("category", mCategory);
         Intent intent = new Intent(mActivity, mActivity.getClass())
                 .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                .putExtras(bundle);
-        mPendingIntent = PendingIntent.getActivity(mActivity, 0, intent, 0);
+                .replaceExtras(mExtra);
+        mPendingIntent = PendingIntent.getActivity(mActivity, 0, intent, PendingIntent.FLAG_ONE_SHOT
+                + PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Intent filters preparation
         IntentFilter ndefFilter = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);

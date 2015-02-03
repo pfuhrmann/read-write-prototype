@@ -19,7 +19,6 @@
         android:layout_marginTop="45dp"
         android:layout_alignParentEnd="true"
         android:hint="@string/text_insert"
-        android:onClick="onEncodeBtnClick"
         android:nestedScrollingEnabled="true" />
 
     <Button

@@ -40,7 +40,7 @@ public class WriteTextFragment extends Fragment
     @Override
     public void onClick(View v) {
         // NDEF Record to write
-        NdefRecord record = createTextRecord("test", Locale.getDefault(), true);
+        NdefRecord record = createTextRecord("xxx", Locale.getDefault(), true);
         NfcDialogFragment fragment = new NfcDialogFragment();
         fragment.setNdefRecord(record);
 
@@ -60,6 +60,7 @@ public class WriteTextFragment extends Fragment
         System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
         NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
                 NdefRecord.RTD_TEXT, new byte[0], data);
+
         return record;
     }
 }

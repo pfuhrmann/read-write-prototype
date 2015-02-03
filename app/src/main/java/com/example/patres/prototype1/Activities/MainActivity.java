@@ -9,8 +9,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.Ndef;
-import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
@@ -23,9 +21,8 @@ import com.example.patres.prototype1.Fragments.ReadTagFragment;
 import com.example.patres.prototype1.Fragments.TagInfoFragment;
 import com.example.patres.prototype1.Fragments.WriteTagFragment;
 import com.example.patres.prototype1.Helpers.NFCManager;
+import com.example.patres.prototype1.Helpers.TagWriter;
 import com.example.patres.prototype1.R;
-
-import java.io.IOException;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -110,7 +107,7 @@ public class MainActivity extends Activity
 
     @Override
     public void onNewIntent(Intent intent) {
-        filterNFCDispatch(intent);
+        filterNfcDispatch(intent);
     }
 
     @Override
@@ -118,15 +115,14 @@ public class MainActivity extends Activity
         super.onResume();
 
         Intent intent =  getIntent();
-        filterNFCDispatch(intent);
+        filterNfcDispatch(intent);
     }
 
     /**
      * Filtering for NFC dispatches
-     * - Intents category property is used to diff between
-     *   read and write
+     * - Category extra is used for diff between read and encode modes
      */
-    private void filterNFCDispatch(Intent intent) {
+    private void filterNfcDispatch(Intent intent) {
         int category = intent.getIntExtra("category", -1);
 
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
@@ -138,6 +134,10 @@ public class MainActivity extends Activity
         }
     }
 
+    /**
+     * Read info from the Tag and display it
+     * @param intent
+     */
     private void showTagInfo(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         TagInfoFragment fragmentTagInfo = new TagInfoFragment();
@@ -161,14 +161,20 @@ public class MainActivity extends Activity
                 .commit();
     }
 
+    /**
+     * Write NDEF message and display result of action
+     * @param intent
+     */
     private void writeTagRecord(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         NdefRecord record = intent.getParcelableExtra("record");
         NdefMessage ndefMessage = new NdefMessage(record);
 
-        //writeTag here
-        WriteResponse wr = writeTag(ndefMessage, tag);
+        // Write NDEF record
+        TagWriter writer = new TagWriter();
+        TagWriter.WriteResponse wr = writer.writeTag(ndefMessage, tag);
         String message = (wr.getStatus() == 1 ? "Success: " : "Failed: ") + wr.getMessage();
+
         Toast.makeText(this.getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -190,62 +196,5 @@ public class MainActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
-    }
-
-    public WriteResponse writeTag(NdefMessage message, Tag tag) {
-        int size = message.toByteArray().length;
-        String mess;
-        try {
-            Ndef ndef = Ndef.get(tag);
-            if (ndef != null) {
-                ndef.connect();
-                if (!ndef.isWritable()) {
-                    return new WriteResponse(0, "Tag is read-only");
-                }
-                if (ndef.getMaxSize() < size) {
-                    mess = "Tag capacity is " + ndef.getMaxSize() + " bytes, message is " + size
-                            + " bytes.";
-                    return new WriteResponse(0, mess);
-                }
-                ndef.writeNdefMessage(message);
-
-                mess = "Wrote message to pre-formatted tag.";
-                return new WriteResponse(1, mess);
-            } else {
-                NdefFormatable format = NdefFormatable.get(tag);
-                if (format != null) {
-                    try {
-                        format.connect();
-                        format.format(message);
-                        mess = "Formatted tag and wrote message";
-                        return new WriteResponse(1, mess);
-                    } catch (IOException e) {
-                        mess = "Failed to format tag.";
-                        return new WriteResponse(0, mess);
-                    }
-                } else {
-                    mess = "Tag doesn't support NDEF.";
-                    return new WriteResponse(0, mess);
-                }
-            }
-        } catch (Exception e) {
-            mess = "Failed to write tag";
-            return new WriteResponse(0, mess);
-        }
-    }
-
-    private class WriteResponse {
-        int status;
-        String message;
-        WriteResponse(int Status, String Message) {
-            this.status = Status;
-            this.message = Message;
-        }
-        public int getStatus() {
-            return status;
-        }
-        public String getMessage() {
-            return message;
-        }
     }
 }

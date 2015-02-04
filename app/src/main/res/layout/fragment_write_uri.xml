@@ -14,16 +14,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_alignTop="@+id/editText"
-        android:layout_toStartOf="@+id/editText"
+        android:layout_alignTop="@+id/editTextTo"
+        android:layout_toStartOf="@+id/editTextTo"
         android:entries="@array/uri_list"
         android:spinnerMode="dropdown"
-        android:layout_alignBottom="@+id/editText" />
+        android:layout_alignBottom="@+id/editTextTo" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/editTextTo"
         android:layout_below="@+id/section_label"
         android:layout_marginTop="45dp"
         android:layout_alignParentEnd="true"
@@ -37,7 +37,7 @@
         android:text="@string/tag_encode"
         android:id="@+id/button"
         android:layout_marginTop="45dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/editTextTo"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

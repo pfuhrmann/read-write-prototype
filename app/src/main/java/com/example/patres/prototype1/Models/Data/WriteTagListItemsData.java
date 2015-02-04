@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class WriteTagListItemsData extends ArrayList<NavigationListViewItem> {
 
     public WriteTagListItemsData() {
-        add(new NavigationListViewItem("Write Text", "Create NDEF text record"));
-        add(new NavigationListViewItem("Write URI/URL", "Create NDEF URI/URL record"));
-        add(new NavigationListViewItem("test 3", "test 3B"));
+        add(new NavigationListViewItem("Text", "Create NDEF text record"));
+        add(new NavigationListViewItem("URI/URL", "Create NDEF URI/URL record"));
+        add(new NavigationListViewItem("Email", "Create email record"));
     }
 }

@@ -26,6 +26,9 @@
     <string name="tag_format_failed">Failed to format tag</string>
     <string name="tag_no_ndef">Tag doesn\'t support NDEF</string>
     <string name="tag_read_only">Tag is read-only</string>
+    <string name="placeholder_email_body">Body</string>
+    <string name="placeholder_email_subject">Subject</string>
+    <string name="placeholder_email_to">To</string>
     <string name="placeholder_text_insert">Your text&#8230;</string>
     <string name="placeholder_uri_insert">http://example.com</string>
     <string name="title_section_read">Read Tag</string>

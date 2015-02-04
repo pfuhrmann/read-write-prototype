@@ -28,9 +28,10 @@ public class WriteUriFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_write_uri, container, false);
-        Button btn = (Button) view.findViewById(R.id.button);
-        mText = (EditText) view.findViewById(R.id.editText);
+        mText = (EditText) view.findViewById(R.id.editTextTo);
         mSpinner = (Spinner) view.findViewById(R.id.spinner);
+        // Encode button
+        Button btn = (Button) view.findViewById(R.id.button);
         btn.setOnClickListener(this);
 
         return view;

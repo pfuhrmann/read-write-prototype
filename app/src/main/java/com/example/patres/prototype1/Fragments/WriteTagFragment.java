@@ -24,6 +24,7 @@ public class WriteTagFragment extends Fragment
     // Navigation list section mappings
     public static final int WRITE_TEXT = 0;
     public static final int WRITE_URI = 1;
+    public static final int WRITE_EMAIL = 2;
 
     private List<NavigationListViewItem> mItems;
 
@@ -60,6 +61,9 @@ public class WriteTagFragment extends Fragment
                 break;
             case WriteTagFragment.WRITE_URI:
                 fragment = new WriteUriFragment();
+                break;
+            case WriteTagFragment.WRITE_EMAIL:
+                fragment = new WriteEmailFragment();
                 break;
         }
 

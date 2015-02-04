@@ -14,11 +14,10 @@ import android.widget.EditText;
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
-import java.nio.charset.Charset;
-import java.util.Locale;
-
 public class WriteTextFragment extends Fragment
         implements View.OnClickListener {
+
+    private EditText mText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +26,7 @@ public class WriteTextFragment extends Fragment
 
         View view = inflater.inflate(R.layout.fragment_write_text, container, false);
         Button btn = (Button) view.findViewById(R.id.button);
+        mText = (EditText) view.findViewById(R.id.editText);
         btn.setOnClickListener(this);
 
         return view;
@@ -41,28 +41,11 @@ public class WriteTextFragment extends Fragment
     @Override
     public void onClick(View v) {
         // NDEF Record to write
-        EditText text = (EditText) v.findViewById(R.id.editText);
-        NdefRecord record = createTextRecord(text.getText().toString(), Locale.getDefault(), true);
+        NdefRecord record = NdefRecord.createTextRecord("en", mText.getText().toString());
         NfcDialogFragment fragment = new NfcDialogFragment();
         fragment.setNdefRecord(record);
 
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "dialog_fragment");
-    }
-
-    public NdefRecord createTextRecord(String payload, Locale locale, boolean encodeInUtf8) {
-        byte[] langBytes = locale.getLanguage().getBytes(Charset.forName("US-ASCII"));
-        Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset.forName("UTF-16");
-        byte[] textBytes = payload.getBytes(utfEncoding);
-        int utfBit = encodeInUtf8 ? 0 : (1 << 7);
-        char status = (char) (utfBit + langBytes.length);
-        byte[] data = new byte[1 + langBytes.length + textBytes.length];
-        data[0] = (byte) status;
-        System.arraycopy(langBytes, 0, data, 1, langBytes.length);
-        System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
-        NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
-                NdefRecord.RTD_TEXT, new byte[0], data);
-
-        return record;
     }
 }

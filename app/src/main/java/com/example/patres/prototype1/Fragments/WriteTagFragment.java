@@ -23,6 +23,7 @@ public class WriteTagFragment extends Fragment
 
     // Navigation list section mappings
     public static final int WRITE_TEXT = 0;
+    public static final int WRITE_URI = 1;
 
     private List<NavigationListViewItem> mItems;
 
@@ -56,6 +57,9 @@ public class WriteTagFragment extends Fragment
         switch (position) {
             case WriteTagFragment.WRITE_TEXT:
                 fragment = new WriteTextFragment();
+                break;
+            case WriteTagFragment.WRITE_URI:
+                fragment = new WriteUriFragment();
                 break;
         }
 

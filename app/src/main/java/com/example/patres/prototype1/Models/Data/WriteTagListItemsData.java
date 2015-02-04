@@ -8,7 +8,7 @@ public class WriteTagListItemsData extends ArrayList<NavigationListViewItem> {
 
     public WriteTagListItemsData() {
         add(new NavigationListViewItem("Write Text", "Create NDEF text record"));
-        add(new NavigationListViewItem("test 2", "test 2B"));
+        add(new NavigationListViewItem("Write URI/URL", "Create NDEF URI/URL record"));
         add(new NavigationListViewItem("test 3", "test 3B"));
     }
 }

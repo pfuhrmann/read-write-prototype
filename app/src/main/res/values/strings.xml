@@ -26,10 +26,23 @@
     <string name="tag_format_failed">Failed to format tag</string>
     <string name="tag_no_ndef">Tag doesn\'t support NDEF</string>
     <string name="tag_read_only">Tag is read-only</string>
-    <string name="text_insert">Your text</string>
+    <string name="placeholder_text_insert">Your text&#8230;</string>
+    <string name="placeholder_uri_insert">http://example.com</string>
     <string name="title_section_read">Read Tag</string>
     <string name="title_section_tag_info">Tag Info</string>
     <string name="title_section_write">Write Tag</string>
     <string name="write_title_info">Write tag</string>
 
+    <string-array name="uri_list">
+        <item>http://</item>
+        <item>https://</item>
+        <item>ftp://</item>
+        <item>sftp://</item>
+        <item>file://</item>
+        <item>rtsp://</item>
+        <item>telnet://</item>
+        <item>smb://</item>
+        <item>nfs://</item>
+        <item>dav://</item>
+    </string-array>
 </resources>

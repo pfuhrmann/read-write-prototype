@@ -18,7 +18,7 @@ import com.example.patres.prototype1.R;
 
 import java.util.List;
 
-public class WriteTagFragment extends Fragment
+public class WriteActionFragment extends Fragment
         implements AdapterView.OnItemClickListener {
 
     // Navigation list section mappings
@@ -28,7 +28,7 @@ public class WriteTagFragment extends Fragment
 
     private List<NavigationListViewItem> mItems;
 
-    public WriteTagFragment() {
+    public WriteActionFragment() {
     }
 
     @Override
@@ -56,13 +56,13 @@ public class WriteTagFragment extends Fragment
         Fragment fragment = new Fragment();
 
         switch (position) {
-            case WriteTagFragment.WRITE_TEXT:
+            case WriteActionFragment.WRITE_TEXT:
                 fragment = new WriteTextFragment();
                 break;
-            case WriteTagFragment.WRITE_URI:
+            case WriteActionFragment.WRITE_URI:
                 fragment = new WriteUriFragment();
                 break;
-            case WriteTagFragment.WRITE_EMAIL:
+            case WriteActionFragment.WRITE_EMAIL:
                 fragment = new WriteEmailFragment();
                 break;
         }
@@ -71,6 +71,12 @@ public class WriteTagFragment extends Fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
+
+        // Set home button as up action
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getNavigationDrawerFragment().getDrawerToggle().setDrawerIndicatorEnabled(false);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

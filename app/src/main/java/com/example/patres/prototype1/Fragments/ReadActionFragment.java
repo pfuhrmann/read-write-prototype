@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
-public class ReadTagFragment extends NfcAwareFragment {
+public class ReadActionFragment extends NfcAwareFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

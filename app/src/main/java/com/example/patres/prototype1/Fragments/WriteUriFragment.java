@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
-public class WriteUriFragment extends Fragment
+public class WriteUriFragment extends InnerFragment
         implements View.OnClickListener {
 
     private EditText mText;

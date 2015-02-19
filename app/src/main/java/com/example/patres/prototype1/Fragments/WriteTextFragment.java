@@ -1,7 +1,6 @@
 package com.example.patres.prototype1.Fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.nfc.NdefRecord;
 import android.os.Bundle;
@@ -14,10 +13,16 @@ import android.widget.EditText;
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
-public class WriteTextFragment extends Fragment
+public class WriteTextFragment extends InnerFragment
         implements View.OnClickListener {
 
     private EditText mText;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,13 +36,10 @@ public class WriteTextFragment extends Fragment
         Button btn = (Button) view.findViewById(R.id.button);
         btn.setOnClickListener(this);
 
-        return view;
-    }
+        // Enable menu calls (onOptionsItemSelected)
+        setHasOptionsMenu(true);
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
+        return view;
     }
 
     @Override

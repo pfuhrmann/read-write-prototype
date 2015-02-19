@@ -17,9 +17,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
-import com.example.patres.prototype1.Fragments.ReadTagFragment;
+import com.example.patres.prototype1.Fragments.ReadActionFragment;
 import com.example.patres.prototype1.Fragments.TagInfoFragment;
-import com.example.patres.prototype1.Fragments.WriteTagFragment;
+import com.example.patres.prototype1.Fragments.WriteActionFragment;
 import com.example.patres.prototype1.Helpers.NFCManager;
 import com.example.patres.prototype1.Helpers.TagWriter;
 import com.example.patres.prototype1.R;
@@ -65,10 +65,10 @@ public class MainActivity extends Activity
 
         switch (position) {
             case MainActivity.SECTION_READ:
-                fragment = new ReadTagFragment();
+                fragment = new ReadActionFragment();
                 break;
             case MainActivity.SECTION_WRITE:
-                fragment = new WriteTagFragment();
+                fragment = new WriteActionFragment();
                 break;
         }
 
@@ -196,5 +196,9 @@ public class MainActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+    }
+
+    public NavigationDrawerFragment getNavigationDrawerFragment() {
+        return mNavigationDrawerFragment;
     }
 }

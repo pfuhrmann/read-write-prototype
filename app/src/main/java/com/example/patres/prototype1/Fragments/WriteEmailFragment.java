@@ -15,7 +15,7 @@ import android.widget.EditText;
 import com.example.patres.prototype1.Activities.MainActivity;
 import com.example.patres.prototype1.R;
 
-public class WriteEmailFragment extends Fragment
+public class WriteEmailFragment extends InnerFragment
         implements View.OnClickListener {
 
     private EditText mTo;

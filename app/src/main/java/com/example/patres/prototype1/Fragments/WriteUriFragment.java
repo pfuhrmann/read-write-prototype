@@ -1,7 +1,6 @@
 package com.example.patres.prototype1.Fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.nfc.NdefRecord;

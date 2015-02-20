@@ -5,6 +5,8 @@ import android.content.Context;
 
 public class App extends Application{
 
+    private static final String TAG = App.class.getName();
+
     private static Context mContext;
 
     @Override
@@ -13,16 +15,12 @@ public class App extends Application{
         mContext = this;
     }
 
-    public static Context getContext(){
-        return mContext;
-    }
-
     /**
      * Return a localized string from the application's resources
      *
      * @param resId Resource id for the string
      */
-    public static final String getStr(int resId) {
+    public static String getStr(int resId) {
         return mContext.getResources().getString(resId);
     }
 
@@ -33,7 +31,11 @@ public class App extends Application{
      * @param resId Resource id for the format string
      * @param formatArgs The format arguments that will be used for substitution
      */
-    public static final String getStr(int resId, Object... formatArgs) {
+    public static String getStr(int resId, Object... formatArgs) {
         return mContext.getResources().getString(resId, formatArgs);
+    }
+
+    public static String getTag() {
+        return TAG;
     }
 }

@@ -1,9 +1,11 @@
 package com.example.patres.prototype1.Fragments;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 
 import com.example.patres.prototype1.Adapters.NavigationListViewAdapter;
 import com.example.patres.prototype1.Activities.MainActivity;
+import com.example.patres.prototype1.App;
 import com.example.patres.prototype1.Models.Data.WriteTagListItemsData;
 import com.example.patres.prototype1.Models.NavigationListViewItem;
 import com.example.patres.prototype1.R;
@@ -25,8 +28,6 @@ public class WriteActionFragment extends Fragment
     public static final int WRITE_TEXT = 0;
     public static final int WRITE_URI = 1;
     public static final int WRITE_EMAIL = 2;
-
-    private List<NavigationListViewItem> mItems;
 
     public WriteActionFragment() {
     }
@@ -44,7 +45,7 @@ public class WriteActionFragment extends Fragment
 
         // Setup List view
         ListView list = (ListView) view.findViewById(R.id.list);
-        mItems = new WriteTagListItemsData();
+        List<NavigationListViewItem> mItems = new WriteTagListItemsData();
         list.setAdapter(new NavigationListViewAdapter(getActivity(), mItems));
         list.setOnItemClickListener(this);
 
@@ -77,6 +78,11 @@ public class WriteActionFragment extends Fragment
         // Set home button as up action
         MainActivity activity = (MainActivity) getActivity();
         activity.getNavigationDrawerFragment().getDrawerToggle().setDrawerIndicatorEnabled(false);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = activity.getActionBar();
+        if (null != actionBar) {
+            activity.getActionBar().setDisplayHomeAsUpEnabled(true);
+        } else {
+            Log.e(App.getTag(), "Action bar is null");
+        }
     }
 }

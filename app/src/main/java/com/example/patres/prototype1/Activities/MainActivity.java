@@ -136,7 +136,6 @@ public class MainActivity extends Activity
 
     /**
      * Read info from the Tag and display it
-     * @param intent
      */
     private void showTagInfo(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -163,7 +162,6 @@ public class MainActivity extends Activity
 
     /**
      * Write NDEF message and display result of action
-     * @param intent
      */
     private void writeTagRecord(Intent intent) {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -194,8 +192,12 @@ public class MainActivity extends Activity
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        if (null != actionBar) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mTitle);
+        } else {
+            throw new AssertionError();
+        }
     }
 
     public NavigationDrawerFragment getNavigationDrawerFragment() {

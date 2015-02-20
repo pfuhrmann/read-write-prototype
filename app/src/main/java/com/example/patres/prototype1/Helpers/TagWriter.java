@@ -1,30 +1,16 @@
 package com.example.patres.prototype1.Helpers;
 
-import android.content.res.Resources;
 import android.nfc.NdefMessage;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 
 import com.example.patres.prototype1.R;
+import com.example.patres.prototype1.App;
 
 import java.io.IOException;
 
 public class TagWriter {
-
-    /**
-     * Application resources (to get string.xml values)
-     */
-    private Resources mResources;
-
-    /**
-     * Crate new TagWriter instance
-     *
-     * @param resources Application resources
-     */
-    public TagWriter(Resources resources) {
-        mResources = resources;
-    }
 
     /**
      * Write NDEF message to the Tag
@@ -41,18 +27,18 @@ public class TagWriter {
                 // Initiate connection between tag
                 ndef.connect();
                 if (!ndef.isWritable()) {
-                    return new WriteResponse(0, getString(R.string.tag_read_only));
+                    return new WriteResponse(0, App.getStr(R.string.tag_read_only));
                 }
                 // Check tag's capacity against message size
                 int capacity = ndef.getMaxSize();
                 int size = message.toByteArray().length;
                 if (capacity < size) {
-                    mess = getString(R.string.tag_insufficient_capacity, capacity, size);
+                    mess = App.getStr(R.string.tag_insufficient_capacity, capacity, size);
                     return new WriteResponse(0, mess);
                 }
                 // Write now
                 ndef.writeNdefMessage(message);
-                return new WriteResponse(1, getString(R.string.tag_encoded));
+                return new WriteResponse(1, App.getStr(R.string.tag_encoded));
             } else {
                 NdefFormatable format = NdefFormatable.get(tag);
                 if (format != null) {
@@ -61,37 +47,17 @@ public class TagWriter {
                         format.connect();
                         // Format tag to NDEF
                         format.format(message);
-                        return new WriteResponse(1, getString(R.string.tag_encoded_formatted));
+                        return new WriteResponse(1, App.getStr(R.string.tag_encoded_formatted));
                     } catch (IOException e) {
-                        return new WriteResponse(0, getString(R.string.tag_format_failed));
+                        return new WriteResponse(0, App.getStr(R.string.tag_format_failed));
                     }
                 } else {
-                    return new WriteResponse(0, getString(R.string.tag_no_ndef));
+                    return new WriteResponse(0, App.getStr(R.string.tag_no_ndef));
                 }
             }
         } catch (Exception e) {
-            return new WriteResponse(0, getString(R.string.tag_encoding_failed));
+            return new WriteResponse(0, App.getStr(R.string.tag_encoding_failed));
         }
-    }
-
-    /**
-     * Return a localized string from the application's resources
-     *
-     * @param resId Resource id for the string
-     */
-    public final String getString(int resId) {
-        return mResources.getString(resId);
-    }
-
-    /**
-     * Return a localized string from the application's resources,
-     * substituting the format arguments.
-     *
-     * @param resId Resource id for the format string
-     * @param formatArgs The format arguments that will be used for substitution
-     */
-    public final String getString(int resId, Object... formatArgs) {
-        return mResources.getString(resId, formatArgs);
     }
 
     /**

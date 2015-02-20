@@ -1,7 +1,5 @@
 package com.example.patres.prototype1.Models.Data;
 
-import android.content.res.Resources;
-
 import com.example.patres.prototype1.Models.NavigationListViewItem;
 
 import java.util.ArrayList;

@@ -50,9 +50,10 @@ public class WriteEmailFragment extends InnerFragment
                 "&body=" + mBody.getText();
         Uri uri = Uri.parse(uriStr);
         NdefRecord record = NdefRecord.createUri(uri);
+
+        // Show dialog fragment
         NfcDialogFragment fragment = new NfcDialogFragment();
         fragment.setNdefRecord(record);
-
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "dialog_fragment");
     }

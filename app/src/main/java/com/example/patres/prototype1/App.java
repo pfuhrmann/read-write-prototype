@@ -3,8 +3,11 @@ package com.example.patres.prototype1;
 import android.app.Application;
 import android.content.Context;
 
-public class App extends Application{
+public class App extends Application {
 
+    /**
+     * Tag used for logs
+     */
     private static final String TAG = App.class.getName();
 
     private static Context mContext;
@@ -35,6 +38,9 @@ public class App extends Application{
         return mContext.getResources().getString(resId, formatArgs);
     }
 
+    /**
+     * Return a tag string
+     */
     public static String getTag() {
         return TAG;
     }

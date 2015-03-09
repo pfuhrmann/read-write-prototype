@@ -27,17 +27,23 @@ public class TagWriter {
                 // Initiate connection between tag
                 ndef.connect();
                 if (!ndef.isWritable()) {
+
                     return new WriteResponse(0, App.getStr(R.string.tag_read_only));
                 }
+
                 // Check tag's capacity against message size
                 int capacity = ndef.getMaxSize();
                 int size = message.toByteArray().length;
                 if (capacity < size) {
-                    mess = App.getStr(R.string.tag_insufficient_capacity, capacity, size);
+                    mess = App.getStr(R.string.tag_insufficient_capacity,
+                            capacity, size);
+
                     return new WriteResponse(0, mess);
                 }
+
                 // Write now
                 ndef.writeNdefMessage(message);
+
                 return new WriteResponse(1, App.getStr(R.string.tag_encoded));
             } else {
                 NdefFormatable format = NdefFormatable.get(tag);
@@ -47,7 +53,9 @@ public class TagWriter {
                         format.connect();
                         // Format tag to NDEF
                         format.format(message);
-                        return new WriteResponse(1, App.getStr(R.string.tag_encoded_formatted));
+
+                        return new WriteResponse(1,
+                                App.getStr(R.string.tag_encoded_formatted));
                     } catch (IOException e) {
                         return new WriteResponse(0, App.getStr(R.string.tag_format_failed));
                     }

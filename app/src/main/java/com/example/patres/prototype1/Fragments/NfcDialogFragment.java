@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,7 +8,7 @@ import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.example.patres.prototype1.Helpers.NFCManager;
+import com.example.patres.prototype1.helpers.NFCManager;
 import com.example.patres.prototype1.R;
 
 public class NfcDialogFragment extends DialogFragment {

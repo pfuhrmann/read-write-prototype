@@ -1,10 +1,10 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.patres.prototype1.Activities.MainActivity;
+import com.example.patres.prototype1.activities.MainActivity;
 
 /**
  * Fragment which is inner in regards to navigation

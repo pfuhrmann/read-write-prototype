@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.Activity;
 import android.nfc.NdefMessage;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.Activities.MainActivity;
+import com.example.patres.prototype1.activities.MainActivity;
 import com.example.patres.prototype1.R;
 
 import java.util.Arrays;

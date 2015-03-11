@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.Activity;
 import android.app.ActionBar;

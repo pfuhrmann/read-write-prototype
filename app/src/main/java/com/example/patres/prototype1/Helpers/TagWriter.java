@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Helpers;
+package com.example.patres.prototype1.helpers;
 
 import android.nfc.NdefMessage;
 import android.nfc.Tag;

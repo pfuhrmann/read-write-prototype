@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.patres.prototype1.Activities.MainActivity;
+import com.example.patres.prototype1.activities.MainActivity;
 import com.example.patres.prototype1.R;
 
 public class WriteEmailFragment extends InnerFragment

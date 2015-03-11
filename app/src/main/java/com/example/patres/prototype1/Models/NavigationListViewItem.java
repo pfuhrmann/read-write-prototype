@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Models;
+package com.example.patres.prototype1.models;
 
 public class NavigationListViewItem {
     private final String title;

@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Fragments;
+package com.example.patres.prototype1.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.patres.prototype1.Activities.MainActivity;
+import com.example.patres.prototype1.activities.MainActivity;
 import com.example.patres.prototype1.R;
 
 public class ReadActionFragment extends NfcAwareFragment {

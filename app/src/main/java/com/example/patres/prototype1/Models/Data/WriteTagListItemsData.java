@@ -1,7 +1,7 @@
-package com.example.patres.prototype1.Models.Data;
+package com.example.patres.prototype1.models.data;
 
 import com.example.patres.prototype1.App;
-import com.example.patres.prototype1.Models.NavigationListViewItem;
+import com.example.patres.prototype1.models.NavigationListViewItem;
 import com.example.patres.prototype1.R;
 
 import java.util.ArrayList;

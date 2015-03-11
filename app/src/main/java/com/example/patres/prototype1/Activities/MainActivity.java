@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.Activities;
+package com.example.patres.prototype1.activities;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -16,12 +16,12 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
-import com.example.patres.prototype1.Fragments.NavigationDrawerFragment;
-import com.example.patres.prototype1.Fragments.ReadActionFragment;
-import com.example.patres.prototype1.Fragments.TagInfoFragment;
-import com.example.patres.prototype1.Fragments.WriteActionFragment;
-import com.example.patres.prototype1.Helpers.NFCManager;
-import com.example.patres.prototype1.Helpers.TagWriter;
+import com.example.patres.prototype1.fragments.NavigationDrawerFragment;
+import com.example.patres.prototype1.fragments.ReadActionFragment;
+import com.example.patres.prototype1.fragments.TagInfoFragment;
+import com.example.patres.prototype1.fragments.WriteActionFragment;
+import com.example.patres.prototype1.helpers.NFCManager;
+import com.example.patres.prototype1.helpers.TagWriter;
 import com.example.patres.prototype1.R;
 
 public class MainActivity extends Activity

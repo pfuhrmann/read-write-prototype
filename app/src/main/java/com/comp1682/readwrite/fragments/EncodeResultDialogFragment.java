@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.App;
-import com.example.patres.prototype1.R;
-import com.example.patres.prototype1.utils.TagEncoder;
+import com.comp1682.readwrite.App;
+import com.comp1682.readwrite.R;
+import com.comp1682.readwrite.utils.TagEncoder;
 
 public class EncodeResultDialogFragment extends DialogFragment {
 

@@ -1,12 +1,12 @@
-package com.example.patres.prototype1.utils;
+package com.comp1682.readwrite.utils;
 
 import android.nfc.NdefMessage;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 
-import com.example.patres.prototype1.R;
-import com.example.patres.prototype1.App;
+import com.comp1682.readwrite.R;
+import com.comp1682.readwrite.App;
 
 import java.io.IOException;
 

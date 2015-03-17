@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,8 +8,8 @@ import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.example.patres.prototype1.utils.NFCManager;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.utils.NFCManager;
+import com.comp1682.readwrite.R;
 
 public class EncodeDialogFragment extends DialogFragment {
 

@@ -1,9 +1,9 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.example.patres.prototype1.utils.NFCManager;
+import com.comp1682.readwrite.utils.NFCManager;
 
 public class NfcAwareFragment extends Fragment {
 

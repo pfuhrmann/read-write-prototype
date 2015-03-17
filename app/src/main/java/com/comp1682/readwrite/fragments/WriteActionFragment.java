@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.patres.prototype1.adapters.NavigationListViewAdapter;
-import com.example.patres.prototype1.activities.MainActivity;
-import com.example.patres.prototype1.App;
-import com.example.patres.prototype1.models.data.WriteTagListItemsData;
-import com.example.patres.prototype1.models.NavigationListViewItem;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.adapters.NavigationListViewAdapter;
+import com.comp1682.readwrite.activities.MainActivity;
+import com.comp1682.readwrite.App;
+import com.comp1682.readwrite.models.data.WriteTagListItemsData;
+import com.comp1682.readwrite.models.NavigationListViewItem;
+import com.comp1682.readwrite.R;
 
 import java.util.List;
 

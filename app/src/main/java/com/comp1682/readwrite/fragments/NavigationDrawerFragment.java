@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -22,7 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

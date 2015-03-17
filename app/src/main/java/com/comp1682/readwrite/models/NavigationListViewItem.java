@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.models;
+package com.comp1682.readwrite.models;
 
 public class NavigationListViewItem {
     private final String title;

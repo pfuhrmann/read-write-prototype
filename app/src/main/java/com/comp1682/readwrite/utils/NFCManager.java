@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.utils;
+package com.comp1682.readwrite.utils;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.R;
 
 public class NFCManager {
 

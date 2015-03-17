@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.adapters;
+package com.comp1682.readwrite.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.models.NavigationListViewItem;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.models.NavigationListViewItem;
+import com.comp1682.readwrite.R;
 
 import java.util.List;
 

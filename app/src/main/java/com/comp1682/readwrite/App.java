@@ -1,4 +1,4 @@
-package com.example.patres.prototype1;
+package com.comp1682.readwrite;
 
 import android.app.Application;
 import android.content.Context;

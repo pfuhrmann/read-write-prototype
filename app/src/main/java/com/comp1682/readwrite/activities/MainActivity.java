@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.activities;
+package com.comp1682.readwrite.activities;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -15,15 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import com.example.patres.prototype1.fragments.EncodeDialogFragment;
-import com.example.patres.prototype1.fragments.EncodeResultDialogFragment;
-import com.example.patres.prototype1.fragments.NavigationDrawerFragment;
-import com.example.patres.prototype1.fragments.ReadActionFragment;
-import com.example.patres.prototype1.fragments.TagInfoFragment;
-import com.example.patres.prototype1.fragments.WriteActionFragment;
-import com.example.patres.prototype1.utils.NFCManager;
-import com.example.patres.prototype1.utils.TagEncoder;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.fragments.EncodeDialogFragment;
+import com.comp1682.readwrite.fragments.EncodeResultDialogFragment;
+import com.comp1682.readwrite.fragments.NavigationDrawerFragment;
+import com.comp1682.readwrite.fragments.ReadActionFragment;
+import com.comp1682.readwrite.fragments.TagInfoFragment;
+import com.comp1682.readwrite.fragments.WriteActionFragment;
+import com.comp1682.readwrite.utils.NFCManager;
+import com.comp1682.readwrite.utils.TagEncoder;
+import com.comp1682.readwrite.R;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

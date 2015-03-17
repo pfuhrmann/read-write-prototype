@@ -1,8 +1,8 @@
-package com.example.patres.prototype1.models.data;
+package com.comp1682.readwrite.models.data;
 
-import com.example.patres.prototype1.App;
-import com.example.patres.prototype1.models.NavigationListViewItem;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.App;
+import com.comp1682.readwrite.models.NavigationListViewItem;
+import com.comp1682.readwrite.R;
 
 import java.util.ArrayList;
 

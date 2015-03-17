@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.fragments;
+package com.comp1682.readwrite.fragments;
 
 import android.app.Activity;
 import android.nfc.NdefMessage;
@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.patres.prototype1.activities.MainActivity;
-import com.example.patres.prototype1.R;
+import com.comp1682.readwrite.activities.MainActivity;
+import com.comp1682.readwrite.R;
+import com.comp1682.readwrite.fragments.NfcAwareFragment;
 
 import java.util.Arrays;
 

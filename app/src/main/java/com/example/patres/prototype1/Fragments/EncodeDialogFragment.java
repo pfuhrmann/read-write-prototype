@@ -8,10 +8,10 @@ import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.example.patres.prototype1.helpers.NFCManager;
+import com.example.patres.prototype1.utils.NFCManager;
 import com.example.patres.prototype1.R;
 
-public class NfcDialogFragment extends DialogFragment {
+public class EncodeDialogFragment extends DialogFragment {
 
     /**
      * Extra write data for NFCManager

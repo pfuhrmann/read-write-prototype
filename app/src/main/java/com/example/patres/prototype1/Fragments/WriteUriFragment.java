@@ -22,6 +22,12 @@ public class WriteUriFragment extends InnerFragment
     private Spinner mSpinner;
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +43,12 @@ public class WriteUriFragment extends InnerFragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
-    }
-
-    @Override
     public void onClick(View v) {
         // NDEF Record to write
         String uriStr = mSpinner.getSelectedItem().toString() + mText.getText();
         Uri uri = Uri.parse(uriStr);
         NdefRecord record = NdefRecord.createUri(uri);
-        NfcDialogFragment fragment = new NfcDialogFragment();
+        EncodeDialogFragment fragment = new EncodeDialogFragment();
         fragment.setNdefRecord(record);
 
         FragmentManager fragmentManager = getFragmentManager();

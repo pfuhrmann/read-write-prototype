@@ -3,7 +3,7 @@ package com.example.patres.prototype1.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.example.patres.prototype1.helpers.NFCManager;
+import com.example.patres.prototype1.utils.NFCManager;
 
 public class NfcAwareFragment extends Fragment {
 

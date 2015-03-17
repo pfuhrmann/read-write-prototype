@@ -10,8 +10,7 @@ import com.example.patres.prototype1.activities.MainActivity;
  * Fragment which is inner in regards to navigation
  * - provides navigation up and back functionality
  */
-public class InnerFragment extends Fragment
-{
+public class InnerFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

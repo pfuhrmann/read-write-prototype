@@ -22,6 +22,12 @@ public class WriteEmailFragment extends InnerFragment
     private EditText mBody;
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +44,6 @@ public class WriteEmailFragment extends InnerFragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.SECTION_WRITE);
-    }
-
-    @Override
     public void onClick(View v) {
         // NDEF Record to write
         String uriStr = "mailto:" + mTo.getText() + "?subject=" + mSubject.getText() +
@@ -52,7 +52,7 @@ public class WriteEmailFragment extends InnerFragment
         NdefRecord record = NdefRecord.createUri(uri);
 
         // Show dialog fragment
-        NfcDialogFragment fragment = new NfcDialogFragment();
+        EncodeDialogFragment fragment = new EncodeDialogFragment();
         fragment.setNdefRecord(record);
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "dialog_fragment");

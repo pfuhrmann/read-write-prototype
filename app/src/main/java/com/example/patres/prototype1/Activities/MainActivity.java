@@ -20,8 +20,8 @@ import com.example.patres.prototype1.fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.fragments.ReadActionFragment;
 import com.example.patres.prototype1.fragments.TagInfoFragment;
 import com.example.patres.prototype1.fragments.WriteActionFragment;
-import com.example.patres.prototype1.helpers.NFCManager;
-import com.example.patres.prototype1.helpers.TagWriter;
+import com.example.patres.prototype1.utils.NFCManager;
+import com.example.patres.prototype1.utils.TagWriter;
 import com.example.patres.prototype1.R;
 
 public class MainActivity extends Activity

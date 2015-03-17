@@ -31,13 +31,9 @@ public class WriteTextFragment extends InnerFragment
 
         View view = inflater.inflate(R.layout.fragment_write_text, container, false);
         mText = (EditText) view.findViewById(R.id.editTextTo);
-
         // Encode button
         Button btn = (Button) view.findViewById(R.id.button);
         btn.setOnClickListener(this);
-
-        // Enable menu calls (onOptionsItemSelected)
-        setHasOptionsMenu(true);
 
         return view;
     }
@@ -46,7 +42,7 @@ public class WriteTextFragment extends InnerFragment
     public void onClick(View v) {
         // NDEF Record to write
         NdefRecord record = NdefRecord.createTextRecord("en", mText.getText().toString());
-        NfcDialogFragment fragment = new NfcDialogFragment();
+        EncodeDialogFragment fragment = new EncodeDialogFragment();
         fragment.setNdefRecord(record);
 
         FragmentManager fragmentManager = getFragmentManager();

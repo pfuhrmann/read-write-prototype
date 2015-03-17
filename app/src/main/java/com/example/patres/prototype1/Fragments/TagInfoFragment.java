@@ -104,25 +104,25 @@ public class TagInfoFragment extends NfcAwareFragment {
 
         switch (tnf) {
             case NdefRecord.TNF_ABSOLUTE_URI:
-                tnfString = "TNF_ABSOLUTE_URI";
+                tnfString = "URI";
                 break;
             case NdefRecord.TNF_EMPTY:
-                tnfString = "TNF_EMPTY";
+                tnfString = "Empty";
                 break;
             case NdefRecord.TNF_EXTERNAL_TYPE:
-                tnfString = "TNF_EXTERNAL_TYPE";
+                tnfString = "External Type";
                 break;
             case NdefRecord.TNF_MIME_MEDIA:
-                tnfString = "TNF_MIME_MEDIA";
+                tnfString = "MIME Media";
                 break;
             case NdefRecord.TNF_UNCHANGED:
-                tnfString = "TNF_UNCHANGED";
+                tnfString = "Unchanged";
                 break;
             case NdefRecord.TNF_UNKNOWN:
-                tnfString = "TNF_UNKNOWN";
+                tnfString = "Unknown";
                 break;
             case NdefRecord.TNF_WELL_KNOWN:
-                tnfString = "TNF_WELL_KNOWN";
+                tnfString = "Well Known";
                 break;
         }
 
@@ -139,19 +139,19 @@ public class TagInfoFragment extends NfcAwareFragment {
         String typeString = getString(R.string.not_available);
 
         if (Arrays.equals(type, NdefRecord.RTD_URI)) {
-            typeString = "RTD_URI";
+            typeString = "URI";
         } else if (Arrays.equals(type, NdefRecord.RTD_ALTERNATIVE_CARRIER)) {
-            typeString = "RTD_ALTERNATIVE_CARRIER";
+            typeString = "Alternative Carrier";
         } else if (Arrays.equals(type, NdefRecord.RTD_HANDOVER_CARRIER)) {
-            typeString = "RTD_HANDOVER_CARRIER";
+            typeString = "Handover Carrier";
         } else if (Arrays.equals(type, NdefRecord.RTD_HANDOVER_REQUEST)) {
-            typeString = "RTD_HANDOVER_REQUEST";
+            typeString = "Handover Request";
         } else if (Arrays.equals(type, NdefRecord.RTD_HANDOVER_SELECT)) {
-            typeString = "RTD_HANDOVER_SELECT";
+            typeString = "Handover Select";
         } else if (Arrays.equals(type, NdefRecord.RTD_SMART_POSTER)) {
-            typeString = "RTD_SMART_POSTER";
+            typeString = "Smart Poster";
         } else if (Arrays.equals(type, NdefRecord.RTD_TEXT)) {
-            typeString = "RTD_TEXT";
+            typeString = "Text";
         }
 
         return typeString;

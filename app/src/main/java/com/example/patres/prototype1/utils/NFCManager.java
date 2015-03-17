@@ -1,4 +1,4 @@
-package com.example.patres.prototype1.helpers;
+package com.example.patres.prototype1.utils;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -64,11 +64,12 @@ public class NFCManager {
         }
 
         // Foreground dispatch preparation
+        int intentFlags = PendingIntent.FLAG_ONE_SHOT + PendingIntent.FLAG_UPDATE_CURRENT;
         Intent intent = new Intent(mActivity, mActivity.getClass())
                 .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 .replaceExtras(mExtra);
-        mPendingIntent = PendingIntent.getActivity(mActivity, 0, intent, PendingIntent.FLAG_ONE_SHOT
-                + PendingIntent.FLAG_UPDATE_CURRENT);
+        mPendingIntent = PendingIntent.getActivity(
+                mActivity, 0, intent, intentFlags);
 
         // Intent filters preparation
         IntentFilter ndefFilter = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);

@@ -15,7 +15,7 @@ import java.util.List;
 public class NavigationListViewAdapter extends ArrayAdapter<NavigationListViewItem> {
 
     public NavigationListViewAdapter(Context context, List<NavigationListViewItem> items) {
-        super(context, R.layout.navigation_listview_item, items);
+        super(context, R.layout.list_item_navigation, items);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class NavigationListViewAdapter extends ArrayAdapter<NavigationListViewIt
         if(convertView == null) {
             // inflate the GridView item layout
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.navigation_listview_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_item_navigation, parent, false);
 
             // initialize the view holder
             viewHolder = new ViewHolder();

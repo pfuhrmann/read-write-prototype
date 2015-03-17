@@ -5,6 +5,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_write_email">Email</string>
@@ -17,6 +18,7 @@
     <string name="nfc_not_available">NFC is not available on your device</string>
     <string name="not_available">N/A</string>
     <string name="read_title_info">Please scan the tag</string>
+    <string name="result_icon">Result icon</string>
     <string name="tag_info_ndef_id">NDEF ID</string>
     <string name="tag_info_ndef_payload">NDEF Payload</string>
     <string name="tag_info_ndef_tnf">NDEF TNF</string>

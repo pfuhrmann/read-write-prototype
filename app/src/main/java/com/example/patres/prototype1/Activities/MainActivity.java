@@ -14,14 +14,15 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Toast;
 
+import com.example.patres.prototype1.fragments.EncodeDialogFragment;
+import com.example.patres.prototype1.fragments.EncodeResultDialogFragment;
 import com.example.patres.prototype1.fragments.NavigationDrawerFragment;
 import com.example.patres.prototype1.fragments.ReadActionFragment;
 import com.example.patres.prototype1.fragments.TagInfoFragment;
 import com.example.patres.prototype1.fragments.WriteActionFragment;
 import com.example.patres.prototype1.utils.NFCManager;
-import com.example.patres.prototype1.utils.TagWriter;
+import com.example.patres.prototype1.utils.TagEncoder;
 import com.example.patres.prototype1.R;
 
 public class MainActivity extends Activity
@@ -164,16 +165,25 @@ public class MainActivity extends Activity
      * Write NDEF message and display result of action
      */
     private void writeTagRecord(Intent intent) {
+        // Write NDEF record
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         NdefRecord record = intent.getParcelableExtra("record");
         NdefMessage ndefMessage = new NdefMessage(record);
+        TagEncoder writer = new TagEncoder();
+        TagEncoder.EncodeResult result = writer.writeTag(ndefMessage, tag);
 
-        // Write NDEF record
-        TagWriter writer = new TagWriter();
-        TagWriter.WriteResponse wr = writer.writeTag(ndefMessage, tag);
-        String message = (wr.getStatus() == 1 ? "Success: " : "Failed: ") + wr.getMessage();
+        // Dismiss Encode dialog
+        Fragment dialogFragment = getFragmentManager().findFragmentByTag("encode_fragment");
+        if (dialogFragment != null) {
+            EncodeDialogFragment df = (EncodeDialogFragment) dialogFragment;
+            df.dismiss();
+        }
 
-        Toast.makeText(this.getBaseContext(), message, Toast.LENGTH_SHORT).show();
+        // Show Result dialog
+        EncodeResultDialogFragment resultFragment = new EncodeResultDialogFragment();
+        resultFragment.setResult(result);
+        FragmentManager fragmentManager = getFragmentManager();
+        resultFragment.show(fragmentManager, "result_fragment");
     }
 
     public void onSectionAttached(int section) {

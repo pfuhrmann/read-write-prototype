@@ -2,6 +2,7 @@ package com.example.patres.prototype1;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 public class App extends Application {
 
@@ -36,6 +37,15 @@ public class App extends Application {
      */
     public static String getStr(int resId, Object... formatArgs) {
         return mContext.getResources().getString(resId, formatArgs);
+    }
+
+    /**
+     * Return drawable by name
+     *
+     * @param resId Resource id for the drawable
+     */
+    public static Drawable getDraw(int resId) {
+        return mContext.getResources().getDrawable(resId);
     }
 
     /**

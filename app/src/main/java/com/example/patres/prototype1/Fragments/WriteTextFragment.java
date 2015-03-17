@@ -46,6 +46,6 @@ public class WriteTextFragment extends InnerFragment
         fragment.setNdefRecord(record);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragment.show(fragmentManager, "dialog_fragment");
+        fragment.show(fragmentManager, "encode_fragment");
     }
 }

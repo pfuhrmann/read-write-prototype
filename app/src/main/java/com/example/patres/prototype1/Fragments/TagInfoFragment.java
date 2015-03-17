@@ -42,11 +42,6 @@ public class TagInfoFragment extends NfcAwareFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tag_info, container, false);
-
-        // Disable NDEF layout as default (NDEF msgs might not be present at all)
-        RelativeLayout NdefLayout = (RelativeLayout) view.findViewById(R.id.relativeNdefLayout);
-        NdefLayout.setVisibility(View.INVISIBLE);
-
         // Tag ID
         TextView idTagTV = (TextView) view.findViewById(R.id.textViewTagId);
         idTagTV.setText(parseIdToHexString(mTag.getId()));
@@ -57,7 +52,6 @@ public class TagInfoFragment extends NfcAwareFragment {
         // Map NDEF Info to view
         // TODO: Way of displaying multiple NDEF messages
         if (hasNdefMessage()) {
-            NdefLayout.setVisibility(View.VISIBLE);
             NdefMessage ndef = getFirstNdefMessage();
             // This is safe as parsed NDEF always has at least one record
             NdefRecord record = ndef.getRecords()[0];
@@ -74,6 +68,12 @@ public class TagInfoFragment extends NfcAwareFragment {
             // NDEF Payload
             TextView payloadNdefTV = (TextView) view.findViewById(R.id.textViewNdefPayload);
             payloadNdefTV.setText(new String(record.getPayload()));
+        }
+        else
+        {
+            // Disable NDEF layout as there is no NDEF message
+            RelativeLayout NdefLayout = (RelativeLayout) view.findViewById(R.id.relativeNdefLayout);
+            NdefLayout.setVisibility(View.INVISIBLE);
         }
 
         return view;

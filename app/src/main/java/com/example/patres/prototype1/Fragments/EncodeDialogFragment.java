@@ -39,7 +39,7 @@ public class EncodeDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         return new AlertDialog.Builder(getActivity())
-                .setView(inflater.inflate(R.layout.fragment_nfc_dialog, null))
+                .setView(inflater.inflate(R.layout.dialog_encode, null))
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing just close modal

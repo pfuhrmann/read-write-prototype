@@ -55,6 +55,6 @@ public class WriteEmailFragment extends InnerFragment
         EncodeDialogFragment fragment = new EncodeDialogFragment();
         fragment.setNdefRecord(record);
         FragmentManager fragmentManager = getFragmentManager();
-        fragment.show(fragmentManager, "dialog_fragment");
+        fragment.show(fragmentManager, "encode_fragment");
     }
 }

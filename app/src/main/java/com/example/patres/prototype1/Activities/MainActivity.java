@@ -200,7 +200,7 @@ public class MainActivity extends Activity
         }
     }
 
-    public void restoreActionBar() {
+    void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         if (null != actionBar) {
             actionBar.setDisplayShowTitleEnabled(true);

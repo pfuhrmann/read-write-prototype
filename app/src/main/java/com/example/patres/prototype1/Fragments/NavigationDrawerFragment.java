@@ -91,7 +91,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Removing shadow for lolipop
+        // Removing shadow for lollipop
         getActionBar().setElevation(0);
 
         mDrawerListView = (ListView) inflater.inflate(

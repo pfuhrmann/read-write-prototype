@@ -10,7 +10,6 @@ public class App extends Application {
      * Tag used for logs
      */
     private static final String TAG = App.class.getName();
-
     private static Context mContext;
 
     @Override

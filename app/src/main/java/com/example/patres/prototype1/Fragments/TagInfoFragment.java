@@ -28,14 +28,12 @@ public class TagInfoFragment extends NfcAwareFragment {
      */
     private NdefMessage[] mNdef;
 
-    public TagInfoFragment setTag(Tag tag) {
+    public void setTag(Tag tag) {
         mTag = tag;
-        return this;
     }
 
-    public TagInfoFragment setNdef(NdefMessage[] ndef) {
+    public void setNdef(NdefMessage[] ndef) {
         mNdef = ndef;
-        return this;
     }
 
     @Override

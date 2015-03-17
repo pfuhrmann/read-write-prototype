@@ -25,9 +25,9 @@ public class WriteActionFragment extends Fragment
         implements AdapterView.OnItemClickListener {
 
     // Navigation list section mappings
-    public static final int WRITE_TEXT = 0;
-    public static final int WRITE_URI = 1;
-    public static final int WRITE_EMAIL = 2;
+    private static final int WRITE_TEXT = 0;
+    private static final int WRITE_URI = 1;
+    private static final int WRITE_EMAIL = 2;
 
     public WriteActionFragment() {
     }

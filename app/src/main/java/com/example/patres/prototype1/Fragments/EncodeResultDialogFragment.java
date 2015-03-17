@@ -22,11 +22,6 @@ public class EncodeResultDialogFragment extends DialogFragment {
     private TagEncoder.EncodeResult mResult;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -35,13 +30,9 @@ public class EncodeResultDialogFragment extends DialogFragment {
         TextView mMessage = (TextView) view.findViewById(R.id.textView8);
         ImageView mIcon = (ImageView) view.findViewById(R.id.imageView2);
 
-        if (mResult.getStatus()) {
-            // Success view setup
-            mIcon.setImageDrawable(App.getDraw(R.drawable.success_icon));
-        } else {
-            // Error view setup
-            mIcon.setImageDrawable(App.getDraw(R.drawable.failure_icon));
-        }
+        mIcon.setImageDrawable(mResult.getStatus() ?
+                App.getDraw(R.drawable.success_icon) :
+                App.getDraw(R.drawable.failure_icon));
 
         mMessage.setText(mResult.getMessage());
 

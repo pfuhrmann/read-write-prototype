@@ -41,7 +41,6 @@
     <string name="title_section_read">Read Tag</string>
     <string name="title_section_tag_info">Tag Info</string>
     <string name="title_section_write">Write Tag</string>
-    <string name="write_title_info">Write tag</string>
 
     <string-array name="uri_list">
         <item>http://</item>

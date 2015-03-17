@@ -68,8 +68,8 @@ public class TagEncoder {
      * Immutable encode result model
      */
     public class EncodeResult {
-        private boolean mStatus;
-        private String mMessage;
+        private final boolean mStatus;
+        private final String mMessage;
 
         /**
          * @param status Status of the encoding process

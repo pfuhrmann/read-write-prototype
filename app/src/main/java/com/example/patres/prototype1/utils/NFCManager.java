@@ -30,7 +30,7 @@ public class NFCManager {
     /**
      * Fragments activity instance
      */
-    private Activity mActivity;
+    private final Activity mActivity;
 
     /**
      * Intent filters for NFC
@@ -40,7 +40,7 @@ public class NFCManager {
     /**
      * Intent extra data
      */
-    private Bundle mExtra;
+    private final Bundle mExtra;
 
 
     /**

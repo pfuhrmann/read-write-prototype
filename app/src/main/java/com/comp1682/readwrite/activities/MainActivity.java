@@ -60,19 +60,19 @@ public class MainActivity extends Activity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment = new Fragment();
-
+        String type = "";
         switch (position) {
             case MainActivity.SECTION_READ:
-                FragmentFactory.getFragment("tag-read");
+                type = "tag-read";
                 break;
             case MainActivity.SECTION_WRITE:
-                FragmentFactory.getFragment("tag-write");
+                type = "tag-write";
                 break;
         }
 
+        // Display fragment
+        Fragment fragment = FragmentFactory.getFragment(type);
+        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();

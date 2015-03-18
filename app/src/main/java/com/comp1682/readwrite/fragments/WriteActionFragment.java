@@ -51,21 +51,21 @@ public class WriteActionFragment extends Fragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Fragment fragment = new Fragment();
-
+        String type = "";
         switch (position) {
             case WriteActionFragment.WRITE_TEXT:
-                FragmentFactory.getFragment("write-text");
+                type = "write-text";
                 break;
             case WriteActionFragment.WRITE_URI:
-                FragmentFactory.getFragment("write-uri");
+                type = "write-uri";
                 break;
             case WriteActionFragment.WRITE_EMAIL:
-                FragmentFactory.getFragment("write-email");
+                type = "write-email";
                 break;
         }
 
-        // update the main content by replacing fragments
+        // Display fragment
+        Fragment fragment = FragmentFactory.getFragment(type);;
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)

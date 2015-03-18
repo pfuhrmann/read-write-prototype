@@ -42,13 +42,8 @@ public class WriteTextFragment extends InnerFragment
     public void onClick(View v) {
         // Create Text NDEF Record
         NdefRecord record = NdefRecord.createTextRecord("en", mText.getText().toString());
-
-        // Instantiate encode fragment
-        Bundle args = new Bundle();
-        args.putParcelable("ndef_record", record);
-        EncodeDialogFragment fragment = new EncodeDialogFragment();
-        fragment.setArguments(args);
         // Show encode fragment
+        EncodeDialogFragment fragment = EncodeDialogFragment.newInstance(record);
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "encode_fragment");
     }

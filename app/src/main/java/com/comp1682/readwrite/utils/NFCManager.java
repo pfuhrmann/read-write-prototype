@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -46,10 +47,34 @@ public class NFCManager {
     /**
      * New NFCManager instance
      * @param activity Activity instance
+     * @param extra Extra data for NFC intent
      */
-    public NFCManager(Activity activity, Bundle extra) {
+    private NFCManager(Activity activity, Bundle extra) {
         mActivity = activity;
         mExtra = extra;
+    }
+
+    /**
+     * Static factory method
+     * Instantiate new NFC manager for reading tags
+     */
+    public static NFCManager getReadManager(Activity activity) {
+        Bundle args = new Bundle();
+        args.putInt("category", NFCManager.CATEGORY_READ);
+
+        return new NFCManager(activity, args);
+    }
+
+    /**
+     * Static factory method
+     * Instantiate new NFC manager for encoding tags
+     */
+    public static NFCManager getEncodeManager(Activity activity, NdefRecord record) {
+        Bundle args = new Bundle();
+        args.putInt("category", NFCManager.CATEGORY_ENCODE);
+        args.putParcelable("record", record);
+
+        return new NFCManager(activity, args);
     }
 
     /**

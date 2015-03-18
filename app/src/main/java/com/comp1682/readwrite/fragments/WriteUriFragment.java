@@ -49,12 +49,8 @@ public class WriteUriFragment extends InnerFragment
         Uri uri = Uri.parse(uriStr);
         NdefRecord record = NdefRecord.createUri(uri);
 
-        // Instantiate encode fragment
-        Bundle args = new Bundle();
-        args.putParcelable("ndef_record", record);
-        EncodeDialogFragment fragment = new EncodeDialogFragment();
-        fragment.setArguments(args);
         // Show encode fragment
+        EncodeDialogFragment fragment = EncodeDialogFragment.newInstance(record);
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "encode_fragment");
     }

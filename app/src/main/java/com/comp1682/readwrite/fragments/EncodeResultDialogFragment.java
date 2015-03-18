@@ -16,6 +16,18 @@ import com.comp1682.readwrite.models.EncodeResult;
 
 public class EncodeResultDialogFragment extends DialogFragment {
 
+    /**
+     * Static factory method
+     */
+    public static EncodeResultDialogFragment newInstance(EncodeResult result) {
+        Bundle args = new Bundle();
+        args.putParcelable("result", result);
+        EncodeResultDialogFragment fragment = new EncodeResultDialogFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Setup custom dialog layout

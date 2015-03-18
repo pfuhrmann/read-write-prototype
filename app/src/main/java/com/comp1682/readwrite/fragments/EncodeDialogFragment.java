@@ -18,15 +18,24 @@ public class EncodeDialogFragment extends DialogFragment {
      */
     private NFCManager mNfcManager;
 
+    /**
+     * Static factory method
+     */
+    public static EncodeDialogFragment newInstance(NdefRecord record) {
+        Bundle args = new Bundle();
+        args.putParcelable("ndef_record", record);
+        EncodeDialogFragment fragment = new EncodeDialogFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NdefRecord mRecord = getArguments().getParcelable("ndef_record");
-        Bundle bundle = new Bundle();
-        bundle.putInt("category", NFCManager.CATEGORY_ENCODE);
-        bundle.putParcelable("record", mRecord);
-        mNfcManager = new NFCManager(getActivity(), bundle);
+        NdefRecord record = getArguments().getParcelable("ndef_record");
+        mNfcManager = NFCManager.getEncodeManager(getActivity(), record);
         mNfcManager.prepare();
     }
 

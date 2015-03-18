@@ -140,23 +140,14 @@ public class MainActivity extends Activity
      * Read info from the Tag and display it
      */
     private void showTagInfo(Intent intent) {
-        Bundle args = new Bundle();
-        // Get tag (must be)
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        args.putParcelable("tag", tag);
-        // Get NDEF messages (if any)
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        if (rawMsgs != null) {
-            args.putParcelableArray("ndef", rawMsgs);
-        }
 
-        // Instantiate info fragment
-        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
-        fragmentTagInfo.setArguments(args);
         // Display info fragment
+        TagInfoFragment fragment = TagInfoFragment.newInstance(tag, rawMsgs);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, fragmentTagInfo)
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
@@ -178,12 +169,8 @@ public class MainActivity extends Activity
             df.dismiss();
         }
 
-        // Instantiate Result dialog
-        Bundle args = new Bundle();
-        EncodeResultDialogFragment resultFragment = new EncodeResultDialogFragment();
-        args.putParcelable("result", result);
-        resultFragment.setArguments(args);
         // Show Result dialog
+        EncodeResultDialogFragment resultFragment = EncodeResultDialogFragment.newInstance(result);
         FragmentManager fragmentManager = getFragmentManager();
         resultFragment.show(fragmentManager, "result_fragment");
     }

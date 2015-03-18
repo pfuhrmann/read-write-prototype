@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.comp1682.readwrite.activities.MainActivity;
 import com.comp1682.readwrite.R;
+
 import java.util.Arrays;
 
 public class TagInfoFragment extends NfcAwareFragment {
@@ -27,6 +28,23 @@ public class TagInfoFragment extends NfcAwareFragment {
      * NDEF messages contained in NFC Tag
      */
     private NdefMessage[] mNdef;
+
+    /**
+     * Static factory method
+     */
+    public static TagInfoFragment newInstance(Tag tag, Parcelable[] rawMsgs) {
+        // Setup bundle
+        Bundle args = new Bundle();
+        args.putParcelable("tag", tag);
+        if (rawMsgs != null) {
+            args.putParcelableArray("ndef", rawMsgs);
+        }
+        // Instantiate fragment
+        TagInfoFragment fragment = new TagInfoFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

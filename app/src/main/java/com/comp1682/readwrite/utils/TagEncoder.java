@@ -7,6 +7,7 @@ import android.nfc.tech.NdefFormatable;
 
 import com.comp1682.readwrite.R;
 import com.comp1682.readwrite.App;
+import com.comp1682.readwrite.models.EncodeResult;
 
 import java.io.IOException;
 
@@ -61,31 +62,6 @@ public class TagEncoder {
             }
         } catch (Exception e) {
             return new EncodeResult(false, App.getStr(R.string.tag_encoding_failed));
-        }
-    }
-
-    /**
-     * Immutable encode result model
-     */
-    public class EncodeResult {
-        private final boolean mStatus;
-        private final String mMessage;
-
-        /**
-         * @param status Status of the encoding process
-         * @param message Associated message with result
-         */
-        EncodeResult(boolean status, String message) {
-            mStatus = status;
-            mMessage = message;
-        }
-
-        public boolean getStatus() {
-            return mStatus;
-        }
-
-        public String getMessage() {
-            return mMessage;
         }
     }
 }

@@ -21,6 +21,7 @@ import com.comp1682.readwrite.fragments.NavigationDrawerFragment;
 import com.comp1682.readwrite.fragments.ReadActionFragment;
 import com.comp1682.readwrite.fragments.TagInfoFragment;
 import com.comp1682.readwrite.fragments.WriteActionFragment;
+import com.comp1682.readwrite.models.EncodeResult;
 import com.comp1682.readwrite.utils.NFCManager;
 import com.comp1682.readwrite.utils.TagEncoder;
 import com.comp1682.readwrite.R;
@@ -139,22 +140,20 @@ public class MainActivity extends Activity
      * Read info from the Tag and display it
      */
     private void showTagInfo(Intent intent) {
+        Bundle args = new Bundle();
+        // Get tag (must be)
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
-
+        args.putParcelable("tag", tag);
         // Get NDEF messages (if any)
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
         if (rawMsgs != null) {
-            NdefMessage[] ndefMsgs = new NdefMessage[rawMsgs.length];
-            for (int i = 0; i < rawMsgs.length; i++) {
-                ndefMsgs[i] = (NdefMessage) rawMsgs[i];
-            }
-            fragmentTagInfo.setNdef(ndefMsgs);
+            args.putParcelableArray("ndef", rawMsgs);
         }
 
+        // Instantiate info fragment
+        TagInfoFragment fragmentTagInfo = new TagInfoFragment();
+        fragmentTagInfo.setArguments(args);
         // Display info fragment
-        fragmentTagInfo.setTag(tag);
-        fragmentTagInfo.setRetainInstance(true);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragmentTagInfo)
@@ -170,7 +169,7 @@ public class MainActivity extends Activity
         NdefRecord record = intent.getParcelableExtra("record");
         NdefMessage ndefMessage = new NdefMessage(record);
         TagEncoder writer = new TagEncoder();
-        TagEncoder.EncodeResult result = writer.writeTag(ndefMessage, tag);
+        EncodeResult result = writer.writeTag(ndefMessage, tag);
 
         // Dismiss Encode dialog
         Fragment dialogFragment = getFragmentManager().findFragmentByTag("encode_fragment");
@@ -179,9 +178,12 @@ public class MainActivity extends Activity
             df.dismiss();
         }
 
-        // Show Result dialog
+        // Instantiate Result dialog
+        Bundle args = new Bundle();
         EncodeResultDialogFragment resultFragment = new EncodeResultDialogFragment();
-        resultFragment.setResult(result);
+        args.putParcelable("result", result);
+        resultFragment.setArguments(args);
+        // Show Result dialog
         FragmentManager fragmentManager = getFragmentManager();
         resultFragment.show(fragmentManager, "result_fragment");
     }

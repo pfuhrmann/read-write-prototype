@@ -44,13 +44,17 @@ public class WriteUriFragment extends InnerFragment
 
     @Override
     public void onClick(View v) {
-        // NDEF Record to write
+        // Create URI NDEF record
         String uriStr = mSpinner.getSelectedItem().toString() + mText.getText();
         Uri uri = Uri.parse(uriStr);
         NdefRecord record = NdefRecord.createUri(uri);
-        EncodeDialogFragment fragment = new EncodeDialogFragment();
-        fragment.setNdefRecord(record);
 
+        // Instantiate encode fragment
+        Bundle args = new Bundle();
+        args.putParcelable("ndef_record", record);
+        EncodeDialogFragment fragment = new EncodeDialogFragment();
+        fragment.setArguments(args);
+        // Show encode fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "encode_fragment");
     }

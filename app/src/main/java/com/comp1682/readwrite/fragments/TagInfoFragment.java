@@ -5,6 +5,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,28 +14,33 @@ import android.widget.TextView;
 
 import com.comp1682.readwrite.activities.MainActivity;
 import com.comp1682.readwrite.R;
-import com.comp1682.readwrite.fragments.NfcAwareFragment;
-
 import java.util.Arrays;
 
 public class TagInfoFragment extends NfcAwareFragment {
 
     /**
-     * NFC tag instance
+     * NFC Tag instance
      */
     private Tag mTag;
 
     /**
-     * NDEF messages contained in mTag
+     * NDEF messages contained in NFC Tag
      */
     private NdefMessage[] mNdef;
 
-    public void setTag(Tag tag) {
-        mTag = tag;
-    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    public void setNdef(NdefMessage[] ndef) {
-        mNdef = ndef;
+        mTag = getArguments().getParcelable("tag");
+        Parcelable[] rawMsgs = getArguments().getParcelableArray("ndef");
+        if (rawMsgs != null) {
+            NdefMessage[] ndefMsgs = new NdefMessage[rawMsgs.length];
+            for (int i = 0; i < rawMsgs.length; i++) {
+                ndefMsgs[i] = (NdefMessage) rawMsgs[i];
+            }
+            mNdef = ndefMsgs;
+        }
     }
 
     @Override

@@ -14,11 +14,6 @@ import com.comp1682.readwrite.R;
 public class EncodeDialogFragment extends DialogFragment {
 
     /**
-     * Extra write data for NFCManager
-     */
-    private NdefRecord mRecord;
-
-    /**
      * NFC helper class
      */
     private NFCManager mNfcManager;
@@ -27,6 +22,7 @@ public class EncodeDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        NdefRecord mRecord = getArguments().getParcelable("ndef_record");
         Bundle bundle = new Bundle();
         bundle.putInt("category", NFCManager.CATEGORY_ENCODE);
         bundle.putParcelable("record", mRecord);
@@ -57,13 +53,5 @@ public class EncodeDialogFragment extends DialogFragment {
     public void onPause() {
         super.onPause();
         mNfcManager.disableForegroundDispatch();
-    }
-
-    /**
-     *
-     * @param record Extra message for intent (NDEFRecord)
-     */
-    public void setNdefRecord(NdefRecord record) {
-        mRecord = record;
     }
 }

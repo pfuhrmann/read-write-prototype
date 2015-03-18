@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,15 +47,18 @@ public class WriteEmailFragment extends InnerFragment
 
     @Override
     public void onClick(View v) {
-        // NDEF Record to write
+        // Create mailto URI record
         String uriStr = "mailto:" + mTo.getText() + "?subject=" + mSubject.getText() +
                 "&body=" + mBody.getText();
         Uri uri = Uri.parse(uriStr);
         NdefRecord record = NdefRecord.createUri(uri);
 
-        // Show dialog fragment
+        // Instantiate encode fragment
+        Bundle args = new Bundle();
+        args.putParcelable("ndef_record", record);
         EncodeDialogFragment fragment = new EncodeDialogFragment();
-        fragment.setNdefRecord(record);
+        fragment.setArguments(args);
+        // Show encode fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "encode_fragment");
     }

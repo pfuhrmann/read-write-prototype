@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.comp1682.readwrite.App;
 import com.comp1682.readwrite.R;
+import com.comp1682.readwrite.models.EncodeResult;
 import com.comp1682.readwrite.utils.TagEncoder;
 
 public class EncodeResultDialogFragment extends DialogFragment {
@@ -19,21 +20,21 @@ public class EncodeResultDialogFragment extends DialogFragment {
     /**
      * Response from encoding process
      */
-    private TagEncoder.EncodeResult mResult;
+    private EncodeResult mResult;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Get the layout inflater
+        // Setup custom dialog layout
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_encode_result, null);
-
         TextView mMessage = (TextView) view.findViewById(R.id.textView8);
         ImageView mIcon = (ImageView) view.findViewById(R.id.imageView2);
 
+        // Map result data to layout
+        mResult = getArguments().getParcelable("result");
         mIcon.setImageDrawable(mResult.getStatus() ?
                 App.getDraw(R.drawable.success_icon) :
                 App.getDraw(R.drawable.failure_icon));
-
         mMessage.setText(mResult.getMessage());
 
         return new AlertDialog.Builder(getActivity())
@@ -43,13 +44,5 @@ public class EncodeResultDialogFragment extends DialogFragment {
                         // Do nothing just close modal
                     }
                 }).create();
-    }
-
-    /**
-     *
-     * @param response Response model from encoding process
-     */
-    public void setResult(TagEncoder.EncodeResult response) {
-        this.mResult = response;
     }
 }

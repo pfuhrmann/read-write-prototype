@@ -8,18 +8,19 @@ import android.app.Fragment;
 public class FragmentFactory {
 
     public static Fragment getFragment(String type) {
-        if (type.equals("tag-read")) {
-            return new ReadActionFragment();
-        } else if (type.equals("tag-write")) {
-            return new WriteActionFragment();
-        } else if (type.equals("write-email")) {
-            return new WriteEmailFragment();
-        } else if (type.equals("write-text")) {
-            return new WriteTextFragment();
-        } else if (type.equals("write-uri")) {
-            return new WriteUriFragment();
-        } else {
-            return null;
+        switch (type) {
+            case "tag-read":
+                return new ReadActionFragment();
+            case "tag-write":
+                return new WriteActionFragment();
+            case "write-email":
+                return new WriteEmailFragment();
+            case "write-text":
+                return new WriteTextFragment();
+            case "write-uri":
+                return new WriteUriFragment();
+            default:
+                return null;
         }
     }
 }

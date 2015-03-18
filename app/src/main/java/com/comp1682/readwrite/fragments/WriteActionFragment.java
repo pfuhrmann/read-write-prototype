@@ -29,9 +29,6 @@ public class WriteActionFragment extends Fragment
     private static final int WRITE_URI = 1;
     private static final int WRITE_EMAIL = 2;
 
-    public WriteActionFragment() {
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -58,13 +55,13 @@ public class WriteActionFragment extends Fragment
 
         switch (position) {
             case WriteActionFragment.WRITE_TEXT:
-                fragment = new WriteTextFragment();
+                FragmentFactory.getFragment("write-text");
                 break;
             case WriteActionFragment.WRITE_URI:
-                fragment = new WriteUriFragment();
+                FragmentFactory.getFragment("write-uri");
                 break;
             case WriteActionFragment.WRITE_EMAIL:
-                fragment = new WriteEmailFragment();
+                FragmentFactory.getFragment("write-email");
                 break;
         }
 

@@ -17,10 +17,9 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.comp1682.readwrite.fragments.EncodeDialogFragment;
 import com.comp1682.readwrite.fragments.EncodeResultDialogFragment;
+import com.comp1682.readwrite.fragments.FragmentFactory;
 import com.comp1682.readwrite.fragments.NavigationDrawerFragment;
-import com.comp1682.readwrite.fragments.ReadActionFragment;
 import com.comp1682.readwrite.fragments.TagInfoFragment;
-import com.comp1682.readwrite.fragments.WriteActionFragment;
 import com.comp1682.readwrite.models.EncodeResult;
 import com.comp1682.readwrite.utils.NFCManager;
 import com.comp1682.readwrite.utils.TagEncoder;
@@ -67,10 +66,10 @@ public class MainActivity extends Activity
 
         switch (position) {
             case MainActivity.SECTION_READ:
-                fragment = new ReadActionFragment();
+                FragmentFactory.getFragment("tag-read");
                 break;
             case MainActivity.SECTION_WRITE:
-                fragment = new WriteActionFragment();
+                FragmentFactory.getFragment("tag-write");
                 break;
         }
 

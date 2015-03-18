@@ -7,7 +7,7 @@
 
     <RelativeLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/listview_background" >
+        android:background="@drawable/list_view_background" >
 
         <RelativeLayout android:layout_width="wrap_content"
             android:layout_height="wrap_content"

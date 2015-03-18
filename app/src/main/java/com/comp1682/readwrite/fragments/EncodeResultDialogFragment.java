@@ -13,14 +13,8 @@ import android.widget.TextView;
 import com.comp1682.readwrite.App;
 import com.comp1682.readwrite.R;
 import com.comp1682.readwrite.models.EncodeResult;
-import com.comp1682.readwrite.utils.TagEncoder;
 
 public class EncodeResultDialogFragment extends DialogFragment {
-
-    /**
-     * Response from encoding process
-     */
-    private EncodeResult mResult;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -31,7 +25,7 @@ public class EncodeResultDialogFragment extends DialogFragment {
         ImageView mIcon = (ImageView) view.findViewById(R.id.imageView2);
 
         // Map result data to layout
-        mResult = getArguments().getParcelable("result");
+        EncodeResult mResult = getArguments().getParcelable("result");
         mIcon.setImageDrawable(mResult.getStatus() ?
                 App.getDraw(R.drawable.success_icon) :
                 App.getDraw(R.drawable.failure_icon));

@@ -15,6 +15,8 @@ public class NFCManager {
     // Intent extra category mappings
     public static final int CATEGORY_READ = 0;
     public static final int CATEGORY_ENCODE = 1;
+    public static final int CATEGORY_COPY_READ = 2;
+    public static final int CATEGORY_COPY_ENCODE = 3;
 
     /**
      * PendingIntent object so the Android system can populate it with the details of the tag when

@@ -20,7 +20,7 @@ public class TagEncoder {
      * @param tag Discovered NFC tag
      * @return Response class
      */
-    public EncodeResult writeTag(NdefMessage message, Tag tag) {
+    public EncodeResult encodeTag(NdefMessage message, Tag tag) {
         String mess;
         try {
             Ndef ndef = Ndef.get(tag);

@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import com.comp1682.readwrite.fragments.CopyDialogFragment;
 import com.comp1682.readwrite.fragments.EncodeDialogFragment;
 import com.comp1682.readwrite.fragments.EncodeResultDialogFragment;
 import com.comp1682.readwrite.fragments.FragmentFactory;
@@ -31,7 +32,8 @@ public class MainActivity extends Activity
     // Navigation section mappings
     public static final int SECTION_READ = 0;
     public static final int SECTION_WRITE = 1;
-    public static final int SECTION_INFO = 2;
+    public static final int SECTION_OTHER = 2;
+    public static final int SECTION_INFO = 3;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -67,6 +69,9 @@ public class MainActivity extends Activity
                 break;
             case MainActivity.SECTION_WRITE:
                 type = "tag-write";
+                break;
+            case MainActivity.SECTION_OTHER:
+                type = "tag-other";
                 break;
         }
 
@@ -131,6 +136,10 @@ public class MainActivity extends Activity
                 showTagInfo(intent);
             } else if (NFCManager.CATEGORY_ENCODE == category) {
                 writeTagRecord(intent);
+            } else if (NFCManager.CATEGORY_COPY_READ == category) {
+                readCopyRecord(intent);
+            } else if (NFCManager.CATEGORY_COPY_ENCODE == category) {
+                encodeCopyRecord(intent);
             }
         }
     }
@@ -159,7 +168,7 @@ public class MainActivity extends Activity
         NdefRecord record = intent.getParcelableExtra("record");
         NdefMessage ndefMessage = new NdefMessage(record);
         TagEncoder writer = new TagEncoder();
-        EncodeResult result = writer.writeTag(ndefMessage, tag);
+        EncodeResult result = writer.encodeTag(ndefMessage, tag);
 
         // Dismiss Encode dialog
         Fragment dialogFragment = getFragmentManager().findFragmentByTag("encode_fragment");
@@ -174,6 +183,51 @@ public class MainActivity extends Activity
         resultFragment.show(fragmentManager, "result_fragment");
     }
 
+    /**
+     * Read info from the Tag and display paste dialog
+     */
+    private void readCopyRecord(Intent intent) {
+        // Get NDEF messages (if any)
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        // Dismiss Copy dialog (step 1)
+        Fragment dialogFragment = getFragmentManager().findFragmentByTag("copy_fragment");
+        if (dialogFragment != null) {
+            CopyDialogFragment df = (CopyDialogFragment) dialogFragment;
+            df.dismiss();
+        }
+
+        // Show Copy dialog
+        CopyDialogFragment fragment = CopyDialogFragment.newInstanceStep2(rawMsgs);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragment.show(fragmentManager, "copy_fragment");
+    }
+
+    /**
+     * Write copied NDEF message and display result of action
+     */
+    private void encodeCopyRecord(Intent intent) {
+        // Write NDEF record
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra("ndef");
+        NdefMessage message = (NdefMessage) rawMsgs[0];
+        TagEncoder encoder = new TagEncoder();
+        EncodeResult result = encoder.encodeTag(message, tag);
+
+        // Dismiss Copy dialog (step 2)
+        Fragment dialogFragment = getFragmentManager().findFragmentByTag("copy_fragment");
+        if (dialogFragment != null) {
+            CopyDialogFragment df = (CopyDialogFragment) dialogFragment;
+            df.dismiss();
+        }
+
+        // Show Result dialog
+        EncodeResultDialogFragment resultFragment = EncodeResultDialogFragment.newInstance(result);
+        FragmentManager fragmentManager = getFragmentManager();
+        resultFragment.show(fragmentManager, "result_fragment");
+    }
+
+
     public void onSectionAttached(int section) {
         switch (section) {
             case MainActivity.SECTION_READ:
@@ -181,6 +235,9 @@ public class MainActivity extends Activity
                 break;
             case MainActivity.SECTION_WRITE:
                 mTitle = getString(R.string.title_section_write);
+                break;
+            case MainActivity.SECTION_OTHER:
+                mTitle = getString(R.string.title_section_other);
                 break;
             case MainActivity.SECTION_INFO:
                 mTitle = getString(R.string.title_section_tag_info);

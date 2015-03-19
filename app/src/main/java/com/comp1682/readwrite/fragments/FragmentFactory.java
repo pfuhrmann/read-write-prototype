@@ -13,6 +13,8 @@ public class FragmentFactory {
                 return new ReadActionFragment();
             case "tag-write":
                 return new WriteActionFragment();
+            case "tag-other":
+                return new OtherActionsFragment();
             case "write-email":
                 return new WriteEmailFragment();
             case "write-text":

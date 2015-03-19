@@ -1,0 +1,108 @@
+package com.comp1682.readwrite.fragments;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.nfc.NdefRecord;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.comp1682.readwrite.App;
+import com.comp1682.readwrite.utils.NFCManager;
+import com.comp1682.readwrite.R;
+
+public class CopyDialogFragment extends DialogFragment {
+
+    /**
+     * NFC helper class
+     */
+    private NFCManager mNfcManager;
+
+    /**
+     * Step in copy process
+     */
+    private int mStep;
+
+    /**
+     * Static factory method (Step 1)
+     */
+    public static CopyDialogFragment newInstanceStep1() {
+        Bundle args = new Bundle();
+        args.putInt("step", 1);
+        CopyDialogFragment fragment = new CopyDialogFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    /**
+     * Static factory method (Step 2)
+     */
+    public static CopyDialogFragment newInstanceStep2(Parcelable[] rawMsgs) {
+        Bundle args = new Bundle();
+        args.putInt("step", 2);
+        args.putParcelableArray("ndef", rawMsgs);
+        CopyDialogFragment fragment = new CopyDialogFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mStep = getArguments().getInt("step");
+        // Read source tag
+        if (mStep == 1) {
+            mNfcManager = NFCManager.getCopyReadManager(getActivity());
+        // Write destination tag
+        } else if (mStep == 2) {
+            Parcelable[] msgs = getArguments().getParcelableArray("ndef");
+            mNfcManager = NFCManager.getCopyEncodeManager(getActivity(), msgs);
+        }
+
+        mNfcManager.prepare();
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Setup custom dialog layout
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_copy, null);
+        TextView step = (TextView) view.findViewById(R.id.textView9);
+        TextView mMessage = (TextView) view.findViewById(R.id.textView8);
+
+        // Setup view for different steps
+        if (mStep == 1) {
+            step.setText(App.getStr(R.string.copy_step_1));
+        } else if (mStep == 2) {
+            step.setText(App.getStr(R.string.copy_step_2));
+            mMessage.setText(App.getStr(R.string.approach_destination_tag));
+        }
+
+        return new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing just close modal
+                    }
+                }).create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mNfcManager.enableForegroundDispatch();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mNfcManager.disableForegroundDispatch();
+    }
+}

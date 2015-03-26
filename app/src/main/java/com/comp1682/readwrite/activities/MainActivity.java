@@ -11,6 +11,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.TimingLogger;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -203,6 +204,7 @@ public class MainActivity extends Activity
      * Read info from the Tag and display paste dialog
      */
     private void readCopyRecord(Intent intent) {
+        TimingLogger timings = new TimingLogger("test", "read-copy");
         Bundle args = new Bundle();
         // Get NDEF messages (if any)
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -224,12 +226,15 @@ public class MainActivity extends Activity
         // Show Copy dialog
         FragmentManager fragmentManager = getFragmentManager();
         fragment.show(fragmentManager, "copy_fragment");
+        timings.addSplit("test");
+        timings.dumpToLog();
     }
 
     /**
      * Write copied NDEF message and display result of action
      */
     private void encodeCopyRecord(Intent intent) {
+        TimingLogger timings = new TimingLogger("test", "encode-copy");
         // Write NDEF record
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         Parcelable[] rawMsgs = intent.getParcelableArrayExtra("ndef");
@@ -252,6 +257,9 @@ public class MainActivity extends Activity
         // Show Result dialog
         FragmentManager fragmentManager = getFragmentManager();
         resultFragment.show(fragmentManager, "result_fragment");
+
+        timings.addSplit("test");
+        timings.dumpToLog();
     }
 
     public void onSectionAttached(int section) {

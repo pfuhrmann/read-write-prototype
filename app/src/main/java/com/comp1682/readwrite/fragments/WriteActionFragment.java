@@ -65,7 +65,7 @@ public class WriteActionFragment extends Fragment
         }
 
         // Display fragment
-        Fragment fragment = FragmentFactory.getFragment(type);;
+        Fragment fragment = FragmentFactory.getFragment(type);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)

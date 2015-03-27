@@ -11,13 +11,11 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.util.TimingLogger;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import com.comp1682.readwrite.App;
 import com.comp1682.readwrite.fragments.CopyDialogFragment;
 import com.comp1682.readwrite.fragments.EncodeDialogFragment;
 import com.comp1682.readwrite.fragments.EncodeResultDialogFragment;

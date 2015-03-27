@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Reader/Writer Prototype</string>
+    <string name="app_name">RW Plain Basic</string>
     <string name="approach_tag">Approach tag&#8230;</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>

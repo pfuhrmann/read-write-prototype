@@ -2,7 +2,7 @@
 <resources>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="app_name">Reader/Writer Prototype</string>
+    <string name="app_name">RW Factory Copy</string>
     <string name="approach_destination_tag">Approach destination tag&#8230;</string>
     <string name="approach_tag">Approach tag&#8230;</string>
     <string name="approach_source_tag">Approach source tag&#8230;</string>
